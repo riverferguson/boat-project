@@ -5,6 +5,7 @@
 # Remote library imports
 from flask import request, make_response, jsonify, Flask
 from flask_restful import Resource
+from models import Boat, Location, Owner
 
 # Local imports
 from config import *
