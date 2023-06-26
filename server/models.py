@@ -74,6 +74,7 @@ class Boat(db.Model, SerializerMixin):
     make = db.Column(db.String)
     model = db.Column(db.String)
     price = db.Column(db.Integer)
+    image= db.Column(db.String)
     description = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
