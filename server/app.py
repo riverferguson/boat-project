@@ -94,6 +94,13 @@ class OwnersById(Resource):
             return make_response({"errors": [str(e)]}, 400)
     
 api.add_resource(OwnersById, '/owners/<int:id>')
+
+class Locations(Resource):
+    def get(self):
+        locations = [location.to_dict() for location in Location.query.all()]
+        return make_response(jsonify(locations), 200)
             
+api.add_resource(Locations, '/locations')
+
 if __name__ == '__main__':
     app.run(port=5555, debug=True)
