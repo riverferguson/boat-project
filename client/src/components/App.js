@@ -4,31 +4,40 @@ import BoatPage from "./BoatPage";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import OwnerPage from "./OwnerPage";
+import LocationPage from "./LocationPage";
 
 function App() {
-    const [boats, setBoats] = useState([])
-    const [owners, setOwners] = useState([])
+  const [boats, setBoats] = useState([]);
+  const [owners, setOwners] = useState([]);
+  const [location, setLocation] = useState([]);
 
-    useEffect(() => {
-        fetch("/boats")
-        .then((resp) => resp.json())
-        .then((boats) => setBoats(boats))
-    }, [])
-
-    useEffect(() => {
-      fetch("/owners")
+  useEffect(() => {
+    fetch("/boats")
       .then((resp) => resp.json())
-      .then((owners) => setOwners(owners))
-  }, [])
+      .then((boats) => setBoats(boats));
+  }, []);
+
+  useEffect(() => {
+    fetch("/owners")
+      .then((resp) => resp.json())
+      .then((owners) => setOwners(owners));
+  }, []);
+
+  useEffect(() => {
+    fetch("/locations")
+      .then((resp) => resp.json())
+      .then((location) => setLocation(location));
+  }, []);
 
   return (
     <main>
-      <Nav/>
-      <BoatPage boats={boats}/>
-      <OwnerPage owners={owners}/>
-      <Footer/>
+      <Nav />
+      <BoatPage boats={boats} />
+      <LocationPage locations={location} />
+      <OwnerPage owners={owners} />
+      <Footer />
     </main>
-  )
+  );
 }
 
 export default App;

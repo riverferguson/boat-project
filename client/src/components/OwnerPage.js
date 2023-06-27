@@ -1,14 +1,17 @@
-import React from 'react'
-import OwnerCard from './OwnerCard'
+import React from "react";
+import OwnerCard from "./OwnerCard";
 
-const OwnerPage = ({owners}) => {
-const mappedOwners = owners.map(owner => <OwnerCard  key={owner.id} owner={owner}/>)
+const OwnerPage = ({ owners }) => {
+  const mappedOwners = owners.map((owner) => (
+    <OwnerCard key={owner.id} owner={owner} />
+  ));
 
   return (
-    <div>
-        {mappedOwners}
-    </div>
-  )
-}
+    <main>
+      <h2>Members</h2>
+      <div>{mappedOwners}</div>
+    </main>
+  );
+};
 
-export default OwnerPage
+export default OwnerPage;
