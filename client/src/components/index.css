@@ -1,3 +1,45 @@
+/* boat card css */
+
+.boat-card {
+    text-align: center;
+    border: grey solid 1px;
+    padding: 1rem;
+    width: 15rem;
+    height: 25rem;
+    display: inline-grid;
+    margin: 1rem 2rem;
+    box-shadow: 3px 4px #1e0598;
+    font-weight: bolder;
+  }
+  
+  .cart-button {
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 25px;
+    border: #980505;
+    transition-duration: 0.5s;
+  }
+  
+  .cart-button:hover {
+    background-color: #980505;
+      color: white;
+  }
+  
+  .trash-button {
+    margin-top: 10px;
+    margin-right: 10px;
+    font-size: 25px;
+    border: #980505;
+    transition-duration: 0.5s;
+  }
+  
+  .trash-button:hover {
+    background-color: #980505;
+      color: white;
+  }
+
+
+/* nav css */
 * {
     box-sizing: border-box;
 }

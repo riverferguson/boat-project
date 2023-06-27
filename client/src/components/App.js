@@ -32,9 +32,17 @@ function App() {
   return (
     <main>
       <Nav />
+      <Switch>
+      <Route path='/boats'>
       <BoatPage boats={boats} />
+      </Route>
+      <Route path='/locations'>
       <LocationPage locations={location} />
+      </Route>
+      <Route path='/owners'>
       <OwnerPage owners={owners} />
+      </Route>
+      </Switch>
       <Footer />
     </main>
   );

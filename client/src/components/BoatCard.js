@@ -1,5 +1,5 @@
 import React from 'react'
-import './BoatCard.css'
+import './index.css'
 
 const BoatCard = ({boat}) => {
 const {make, model, image, price, description} = boat
