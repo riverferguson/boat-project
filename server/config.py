@@ -7,11 +7,14 @@ from flask_migrate import Migrate
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
-# Local imports
+from flask_login import LoginManager
 
+# Local imports
+from key.env import SECRET_KEY
+from models import Owner
 # Instantiate app, set attributes
 app = Flask(__name__)
-app.config['SECRET_KEY'] = "b\x9f\xe2&%k\x1cP$\xd5\x8e\x0f \xad\x89\x17#\xfe\x9d\x18\xd1Pk"
+app.config['SECRET_KEY'] = SECRET_KEY
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.json.compact = False
@@ -20,8 +23,8 @@ from .app import auth as auth_blueprint
 app.register_blueprint(auth_blueprint)
 
 # blueprint for non-auth parts of app
-# from .main import main as main_blueprint
-# app.register_blueprint(main_blueprint)
+from .app import main as main_blueprint
+app.register_blueprint(main_blueprint)
 
 # Define metadata, instantiate db
 metadata = MetaData(naming_convention={
@@ -30,6 +33,14 @@ metadata = MetaData(naming_convention={
 db = SQLAlchemy(metadata=metadata)
 migrate = Migrate(app, db)
 db.init_app(app)
+#login logic
+login_manager = LoginManager()
+login_manager.login_view = 'auth.login'
+login_manager.init_app(app)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return Owner.query.get(int(user_id))
 
 # Instantiate REST API
 api = Api(app)

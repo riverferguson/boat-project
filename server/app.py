@@ -3,23 +3,39 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify, Blueprint, redirect, url_for, flash
+from flask import request, make_response, jsonify, redirect, url_for, flash, Blueprint
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
+from flask_login import login_user, login_required, logout_user
 
 # Local imports
 from config import *
 
 auth = Blueprint('auth', __name__)
+main = Blueprint('main', __name__)
 # Views go here!
-@app.route('/')
+@main.route('/')
 def home():
     return 'you made it home'
 
-@auth.route('/login')
+@main.route('/profile')
+def profile():
+    return 'Profile'
+
+@auth.route('/login', methods=['POST'])
 def login():
-    return 'Login'
+    username = request.form.get('username')
+    password = request.form.get('password')
+    
+    owner = Owner.query.filter_by(username=username).first()
+    
+    if not owner or not check_password_hash(owner.password, password):
+        flash('Username or Password was incorrect. Please try again.')
+        return redirect(url_for('auth.login'))
+    
+    login_user(owner)
+    return redirect(url_for('main.profile'))
 
 @auth.route('/singup', methods=['POST'])
 def signup_post():
@@ -34,7 +50,7 @@ def signup_post():
         flash('Email address already exists')
         return redirect(url_for('auth.signup'))
     
-    new_owner = Owner(first_name=first_name, last_name=last_name, bio=bio, email=email, password=generate_password_hash(password, method='sha256'))
+    new_owner = Owner(first_name=first_name, last_name=last_name, bio=bio, email=email, username=username, password=generate_password_hash(password, method='sha256'))
     
     db.session.add(new_owner)
     db.session.commit()
@@ -42,8 +58,10 @@ def signup_post():
     return redirect(url_for('auth.login'))
 
 @auth.route('/logout')
+@login_required
 def logout():
-    return 'Logout'
+    logout_user()
+    return 'You have been logged out'
 
 
 class Boats(Resource):
