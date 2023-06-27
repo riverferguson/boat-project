@@ -1,8 +1,8 @@
-"""create models, relationships, and validations
+"""create models, relationships and validations
 
-Revision ID: cc9a9de8c467
+Revision ID: 1a89c73cf762
 Revises: 
-Create Date: 2023-06-26 12:25:46.743790
+Create Date: 2023-06-27 09:34:07.483332
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cc9a9de8c467'
+revision = '1a89c73cf762'
 down_revision = None
 branch_labels = None
 depends_on = None
