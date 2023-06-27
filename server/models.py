@@ -19,6 +19,8 @@ class Location(db.Model, SerializerMixin):
     
     boats = db.relationship('Boat', back_populates='location')
     
+    
+    
     @validates('city')
     def validate_city(self, key, city):
         if not city:
@@ -84,6 +86,8 @@ class Boat(db.Model, SerializerMixin):
     
     owner = db.relationship('Owner', back_populates='boats')
     location = db.relationship('Location', back_populates='boats')
+    
+    serialize_only = ('id', 'make', 'model', 'price', 'image', 'description')
     
     @validates('make')
     def validate_make(self, key, make):
