@@ -1,5 +1,6 @@
 # Created by https://www.gitignore.io/api/node
 key.env
+config.py
 .DS_Store
 
 ### Node ###

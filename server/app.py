@@ -3,18 +3,48 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify, Flask
+from flask import request, make_response, jsonify, Blueprint, redirect, url_for, flash
+from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
 
 # Local imports
 from config import *
-from models import User, Recipe
 
+auth = Blueprint('auth', __name__)
 # Views go here!
 @app.route('/')
 def home():
     return 'you made it home'
+
+@auth.route('/login')
+def login():
+    return 'Login'
+
+@auth.route('/singup', methods=['POST'])
+def signup_post():
+    first_name = request.form.get('first_name')
+    last_name = request.form.get('last_name')
+    bio = request.form.get('bio')
+    email = request.form.get('email')
+    username = request.form.get('name')
+    password = request.form.get('password')
+    
+    if owner := Owner.query.filter_by(email= email).first():
+        flash('Email address already exists')
+        return redirect(url_for('auth.signup'))
+    
+    new_owner = Owner(first_name=first_name, last_name=last_name, bio=bio, email=email, password=generate_password_hash(password, method='sha256'))
+    
+    db.session.add(new_owner)
+    db.session.commit()
+    
+    return redirect(url_for('auth.login'))
+
+@auth.route('/logout')
+def logout():
+    return 'Logout'
+
 
 class Boats(Resource):
     def get(self):

@@ -49,6 +49,9 @@ class Owner(db.Model, SerializerMixin):
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     bio = db.Column(db.String)
+    email = db.Column(db.String(100), unique=True)
+    username = db.Column(db.String(1000))
+    password = db.Column(db.String(100))
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
