@@ -6,13 +6,13 @@ from models import Owner, Location, Boat
 import datetime 
 
 # Remote library imports
-from faker import Faker
+# from faker import Faker
 
 # Local imports
 from app import app
 from models import db
 
-fake = Faker()
+# fake = Faker()
 
 # def create_owners():
 #     owners = []
