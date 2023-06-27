@@ -3,11 +3,10 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify, redirect, url_for, flash, Blueprint, session
+from flask import request, make_response, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
-from flask_login import login_user, login_required, logout_user
 
 # Local imports
 from config import *
@@ -30,7 +29,7 @@ class SignUp(Resource):
         password = request.form.get('password')
     
         if owner := Owner.query.filter_by(username= username).first():
-            return 'That user already exists. Try logging in'
+            return make_response('That user already exists. Try logging in')
     
         new_owner = Owner(first_name=first_name, last_name=last_name, bio=bio, email=email, username=username, password=generate_password_hash(password, method='sha256'))
         
@@ -51,7 +50,7 @@ class SignIn(Resource):
         existing_owner = Owner.query.filter_by(username=username).first()
         
         if not existing_owner or not check_password_hash(existing_owner.password, password):
-            return 'Username or password was incorrect. Please try again.'
+            return make_response('Username or password was incorrect. Please try again.')
         
         session['user_id'] = existing_owner.id
         
