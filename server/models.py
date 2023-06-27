@@ -4,6 +4,7 @@ from config import *
 from sqlalchemy.orm import validates
 from sqlalchemy import MetaData
 from sqlalchemy.ext.associationproxy import association_proxy
+from flask_login import UserMixin
 
 
 class Location(db.Model, SerializerMixin):
@@ -18,6 +19,8 @@ class Location(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     boats = db.relationship('Boat', back_populates='location')
+    
+    
     
     @validates('city')
     def validate_city(self, key, city):
@@ -40,13 +43,16 @@ class Location(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Location {self.id}: {self.address}>'
     
-class Owner(db.Model, SerializerMixin):
+class Owner(db.Model, SerializerMixin, UserMixin):
     __tablename__ = 'owners'
     
     id = db.Column(db.Integer, primary_key=True)
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     bio = db.Column(db.String)
+    email = db.Column(db.String, unique=True)
+    username = db.Column(db.String, unique=True)
+    password = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
@@ -85,6 +91,8 @@ class Boat(db.Model, SerializerMixin):
     owner = db.relationship('Owner', back_populates='boats')
     location = db.relationship('Location', back_populates='boats')
     
+    serialize_only = ('id', 'make', 'model', 'price', 'image', 'description')
+    
     @validates('make')
     def validate_make(self, key, make):
         if not 1 <= len(make) <= 30:
@@ -111,3 +119,5 @@ class Boat(db.Model, SerializerMixin):
     
     def __repr__(self):
         return f'<Boat {self.id}: {self.make} {self.model}'
+    
+    
