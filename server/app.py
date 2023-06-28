@@ -35,9 +35,7 @@ class SignUp(Resource):
         
         db.session.add(new_owner)
         db.session.commit()
-        
-        
-        
+
         return make_response('New owner created. Try logging in')
         
 api.add_resource(SignUp, '/signup')
