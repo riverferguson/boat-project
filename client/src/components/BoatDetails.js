@@ -4,7 +4,7 @@ import {useParams} from 'react-router-dom'
 import { useHistory } from 'react-router-dom'
 
 
-const BoatDetails = ({deleteBoat}) => {
+const BoatDetails = ({deleteBoat, handleEdit}) => {
     const [newBoat, setNewBoat] = useState([])
     const {id} = useParams()
     const history = useHistory()
@@ -44,6 +44,7 @@ const handleDelete = (e) => {
     <div>Price: {price}</div>
     <div>Description: {description}</div>
     <button className='trash-button' onClick={handleDelete}>🗑️</button>
+    <button onClick={()=> handleEdit(newBoat)} >Edit Boat Details</button>
     </main>
   )
 }
