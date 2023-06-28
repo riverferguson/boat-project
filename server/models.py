@@ -14,13 +14,12 @@ class Location(db.Model, SerializerMixin):
     city = db.Column(db.String)
     state = db.Column(db.String)
     country =  db.Column(db.String)
-    address = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     boats = db.relationship('Boat', back_populates='location')
 
-    serialize_only = ('id', 'city', 'state', 'country', 'address')
+    serialize_only = ('id', 'city', 'state', 'country')
     
     
     
