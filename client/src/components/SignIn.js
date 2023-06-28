@@ -15,10 +15,8 @@ function SignIn({ onSignIn, user }){
         })
         .then((r) => r.json())
         .then((user) => onSignIn(user))
-        return (
-            <h2>Welcome, {user.username}</h2>
-        )
     }
+    
     return (
         <form onSubmit={handleSubmit}>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Username'/>

@@ -95,12 +95,13 @@ if __name__ == '__main__':
         db.session.commit()
         
         
-        o1 = Owner(first_name='River', last_name='Ferguson', bio='lets buy a boat')
-        o2 = Owner(first_name='Guy', last_name='Buddy', bio='lets buy another boat')
-        o3 = Owner(first_name='Buddy', last_name='Guy', bio='lets buy even another boat')
-        o4 = Owner(first_name='Dirk', last_name='Diggler', bio='Captian of the shit ship')
+        o1 = Owner(first_name='River', last_name='Ferguson', bio='lets buy a boat', email='river@gmail.com', username='BigDawg69', password='12345')
+        o2 = Owner(first_name='Guy', last_name='Buddy', bio='lets buy another boat', email='guyGetsNoBitches@gmail.com', username='Bitchless32', password='password')
+        o3 = Owner(first_name='Buddy', last_name='Guy', bio='lets buy even another boat', email='BuddyRunsPropane2U@comcast.net', username='Buddys Propane and Boats', password='jdushsueh281jk3')
+        o4 = Owner(first_name='Dirk', last_name='Diggler', bio='Captian of the shit ship', email='Dirk@yahoo.com', username='Shit Ship 42', password='DirkDirkDirk')
+        o5 = Owner(first_name='Drew', last_name='Womble', bio='Im poor and own no ships', email='drew@gmail.com', username='drew27', password='12345')
         
-        owners = [o1, o2, o3, o4]
+        owners = [o1, o2, o3, o4, o5]
         db.session.add_all(owners)
         db.session.commit()
         
@@ -113,3 +114,4 @@ if __name__ == '__main__':
         boats = [b1, b2, b3, b4]
         db.session.add_all(boats)
         db.session.commit()
+        print('...done seeding data')
