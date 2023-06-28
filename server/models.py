@@ -4,7 +4,7 @@ from config import *
 from sqlalchemy.orm import validates
 from sqlalchemy import MetaData
 from sqlalchemy.ext.associationproxy import association_proxy
-from flask_login import UserMixin
+
 
 
 class Location(db.Model, SerializerMixin):
@@ -44,7 +44,7 @@ class Location(db.Model, SerializerMixin):
     def __repr__(self):
         return f'<Location {self.id}: {self.address}>'
     
-class Owner(db.Model, SerializerMixin, UserMixin):
+class Owner(db.Model, SerializerMixin):
     __tablename__ = 'owners'
     
     id = db.Column(db.Integer, primary_key=True)

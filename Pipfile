@@ -10,8 +10,7 @@ flask-migrate = "*"
 sqlalchemy-serializer = "*"
 flask-restful = "*"
 flask-cors = "*"
-faker = "*"
-flask-login = "*"
+ipdb = "*"
 
 [dev-packages]
 
