@@ -24,7 +24,6 @@ const Footer = () => {
             </a>
             <p>Pacific Boat Club &#8482;</p> 
             <a href='#root'>
-            <button className="back-button" style={{marginLeft: '10px'}}> Back to Top</button>
             </a>
           </div>
         </>
