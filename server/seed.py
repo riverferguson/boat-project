@@ -85,10 +85,10 @@ if __name__ == '__main__':
         # print('done seeding')
         
         
-        l1 = Location(city='San Diego', state='California', country='USA', address='123 shithead lane')
-        l2 = Location(city='Los Angeles', state='California', country='USA', address='123 spooner lane')
-        l3 = Location(city='Morro Bay', state='California', country='USA', address='123 creek lane')
-        l4 = Location(city='Seattle', state='Washington', country='USA', address='123 broad lane')
+        l1 = Location(city='San Diego', state='California', country='USA')
+        l2 = Location(city='Los Angeles', state='California', country='USA')
+        l3 = Location(city='Morro Bay', state='California', country='USA')
+        l4 = Location(city='Seattle', state='Washington', country='USA')
         
         locations = [l1, l2, l3, l4]
         db.session.add_all(locations)
@@ -98,17 +98,17 @@ if __name__ == '__main__':
         o1 = Owner(first_name='River', last_name='Ferguson', bio='lets buy a boat')
         o2 = Owner(first_name='Guy', last_name='Buddy', bio='lets buy another boat')
         o3 = Owner(first_name='Buddy', last_name='Guy', bio='lets buy even another boat')
-        o4 = Owner(first_name='Dirk', last_name='Diggler', bio='Captian of the shit ship')
+        o4 = Owner(first_name='Dirk', last_name='Diggler', bio='Captian of the ship')
         
         owners = [o1, o2, o3, o4]
         db.session.add_all(owners)
         db.session.commit()
         
         
-        b1 = Boat(make='Bayliner', model='Cruiser', price = 200000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
-        b2 = Boat(make='Boston Whaler', model='Cruiser', price = 400000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
-        b3 = Boat(make='Carver', model='Yacht', price = 2000000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
-        b4 = Boat(make='Malibu', model='Tow-boat', price = 300000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b1 = Boat(make='Bayliner', model='Cruiser', price = 200000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b2 = Boat(make='Boston Whaler', model='Cruiser', price = 400000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b3 = Boat(make='Carver', model='Yacht', price = 2000000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b4 = Boat(make='Malibu', model='Tow-boat', price = 300000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
         
         boats = [b1, b2, b3, b4]
         db.session.add_all(boats)

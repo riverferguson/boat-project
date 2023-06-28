@@ -5,7 +5,12 @@ import Nav from "./Nav";
 import Footer from "./Footer";
 import OwnerPage from "./OwnerPage";
 import LocationPage from "./LocationPage";
+<<<<<<< HEAD
+import BoatForm from "./BoatForm";
+import BoatDetails from "./BoatDetails";
+=======
 // import SignIn from "./SignIn";
+>>>>>>> main
 
 function App() {
   const [boats, setBoats] = useState([]);
@@ -31,6 +36,11 @@ function App() {
       .then((location) => setLocation(location));
   }, []);
 
+<<<<<<< HEAD
+  const addBoat = (newBoat) => {
+    setBoats([...boats, newBoat])
+  }
+=======
   useEffect(() => {
     fetch("/check_session").then((r) => {
       if (r.ok) {
@@ -38,19 +48,26 @@ function App() {
       }
     });
   }, []);
+>>>>>>> main
 
   return (
     <main>
       <Nav onSignOut={setUser}/>
       <Switch>
-      <Route path='/boats'>
-      <BoatPage boats={boats} />
+      <Route exact path='/boats'>
+      <BoatPage boats={boats} locations={location}/>
       </Route>
-      <Route path='/locations'>
+      <Route exact path='/locations'>
       <LocationPage locations={location} />
       </Route>
-      <Route path='/owners'>
+      <Route exact path='/owners'>
       <OwnerPage owners={owners} />
+      </Route>
+      <Route exact path='/boats/new'>
+      <BoatForm addBoat={addBoat}/>
+      </Route>
+      <Route exact path='/boats/:id'>
+      <BoatDetails />
       </Route>
       </Switch>
       <Footer />
