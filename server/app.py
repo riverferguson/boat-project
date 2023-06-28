@@ -10,12 +10,12 @@ from models import Boat, Location, Owner
 
 # Local imports
 from config import *
+from models import Owner, Location, Boat
 
 # Views go here!
 @app.route('/')
 def home():
     return 'you made it home'
-
 class SignUp(Resource):
     def get(self):
         pass
@@ -71,6 +71,7 @@ class SignOut(Resource):
         return make_response({'message': '204: No Content'}, 204)
 
 api.add_resource(SignOut, '/signout')
+
 class Boats(Resource):
     def get(self):
         boats = [boat.to_dict() for boat in Boat.query.all()]
