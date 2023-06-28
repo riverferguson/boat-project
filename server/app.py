@@ -92,7 +92,7 @@ api.add_resource(Boats, '/boats')
 class BoatsById(Resource):
     def get(self, id):
         try:
-            boat = Boats.query.get(id)
+            boat = Boat.query.get(id)
             return make_response(jsonify(boat.to_dict()), 200)
         except Exception:
             return make_response(jsonify({"error": "Boat not found"}), 404)

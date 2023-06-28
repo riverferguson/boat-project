@@ -19,6 +19,8 @@ class Location(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     boats = db.relationship('Boat', back_populates='location')
+
+    serialize_only = ('id', 'city', 'state', 'country', 'address')
     
     
     
@@ -57,6 +59,8 @@ class Owner(db.Model, SerializerMixin, UserMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     boats = db.relationship('Boat', back_populates='owner')
+
+    serialize_only = ('id', 'first_name', 'last_name', 'bio', 'email', 'username', 'password')
     
     @validates('name')
     def validate_name(self, key, name):
@@ -91,7 +95,7 @@ class Boat(db.Model, SerializerMixin):
     owner = db.relationship('Owner', back_populates='boats')
     location = db.relationship('Location', back_populates='boats')
     
-    serialize_only = ('id', 'make', 'model', 'price', 'image', 'description')
+    serialize_only = ('id', 'make', 'model', 'price', 'image', 'description', 'owner_id', 'location_id', 'location')
     
     @validates('make')
     def validate_make(self, key, make):
