@@ -69,7 +69,7 @@ class SignOut(Resource):
     def delete(self):
         session['user_id'] = None
         return make_response({'message': '204: No Content'}, 204)
-    
+
 api.add_resource(SignOut, '/signout')
 class Boats(Resource):
     def get(self):
