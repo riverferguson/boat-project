@@ -9,13 +9,27 @@ const BoatForm = ({ addBoat }) => {
   const history = useHistory();
 
   const boatSchema = yup.object().shape({
-    make: yup.string(),
-    model: yup.string(),
-    description: yup.string(),
-    price: yup.number(),
-    city: yup.string(),
-    state: yup.string(),
+    make: yup.string()
+      .min(1, 'Make must be at least 1 character')
+      .max(30, 'Make must be at most 30 characters')
+      .required('Make is required'),
+    model: yup.string()
+      .min(1, 'Model must be at least 1 character')
+      .max(50, 'Model must be at most 50 characters')
+      .required('Model is required'),
+    description: yup.string()
+      .required('Description is required'),
+    price: yup.number()
+      .min(1, 'Price must be greater than $1.00')
+      .max(1000000000000, 'Price must not be greater than $1,000,000,000,000'),
+    image: yup.string()
+      .required('Image is required'),
+    city: yup.string()
+      .required('City is required'),
+    state: yup.string()
+    .required('State is required'),
     country: yup.string()
+    .required('Country is required'),
   });
 
   const formik = useFormik({
@@ -24,18 +38,19 @@ const BoatForm = ({ addBoat }) => {
       model: "",
       description: "",
       price: "",
+      image: "",
       city: "",
       state: "",
       country: ""
     },
     validationSchema: boatSchema,
     onSubmit: (values, { resetForm }) => {
-      fetch("/boats", {
+      fetch("/boats/new", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values, null, 2),
+        body: JSON.stringify(values),
       })
         .then((r) => {
           if (r.ok) {
@@ -108,7 +123,7 @@ const BoatForm = ({ addBoat }) => {
         {formik.errors.description ? (
           <div className="error-message show">{formik.errors.description}</div>
         ) : null}
-             <label>City</label>
+        <label>City</label>
         <input
           type="text"
           name="city"
@@ -118,7 +133,7 @@ const BoatForm = ({ addBoat }) => {
         {formik.errors.city ? (
           <div className="error-message show">{formik.errors.city}</div>
         ) : null}
-             <label>State</label>
+        <label>State</label>
         <input
           type="text"
           name="state"
@@ -128,7 +143,7 @@ const BoatForm = ({ addBoat }) => {
         {formik.errors.state ? (
           <div className="error-message show">{formik.errors.state}</div>
         ) : null}
-             <label>Country</label>
+        <label>Country</label>
         <input
           type="text"
           name="country"
@@ -154,7 +169,7 @@ margin: auto;
 font-family: Arial;
 font-size: 30px;
 input[type="submit"] {
-background-color: #42ddf5;
+background-color: gray;
 color: white;
 height: 40px;
 font-family: Arial;
