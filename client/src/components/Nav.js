@@ -1,13 +1,8 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import './index.css'
 
-const Nav = ({ onSignOut }) => {
-    const handleSignOut = () => {
-        fetch('/logout', {
-            method: "DELETE",
-        }).then(() => onSignOut());
-    }
+
+const Nav = () => {
 
     return (
         <nav className="nav">
@@ -29,7 +24,15 @@ const Nav = ({ onSignOut }) => {
                   </li>
     
                   <li className='nav-link-wrapper'>
-                  <Link to="/signup">Signup</Link>
+                  <Link to="/signin">SignIn</Link>
+                  </li>
+
+                  <li className='nav-link-wrapper'>
+                    <Link to="/signup">Register as an owner</Link>
+                  </li>
+
+                  <li className='nav-link-wrapper'>
+                    <Link to="/signout">SignOut</Link>
                   </li>
     
                   <li className='nav-link-wrapper'>

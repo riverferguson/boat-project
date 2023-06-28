@@ -36,7 +36,9 @@ class SignUp(Resource):
         db.session.add(new_owner)
         db.session.commit()
 
-        return make_response('New owner created. Try logging in')
+        session['user_id'] = new_owner
+
+        return make_response('New owner created.')
         
 api.add_resource(SignUp, '/signup')
 
@@ -50,7 +52,7 @@ class SignIn(Resource):
         if not existing_owner or not check_password_hash(existing_owner.password, password):
             return make_response('Username or password was incorrect. Please try again.')
         
-        session['user_id'] = existing_owner.id
+        session['user_id'] = existing_owner
         
         return make_response(existing_owner.to_dict())
         

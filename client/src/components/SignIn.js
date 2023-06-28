@@ -1,6 +1,6 @@
 import {useState} from 'react'
 
-function SignIn({ onSignIn }){
+function SignIn({ onSignIn, user }){
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
@@ -15,6 +15,9 @@ function SignIn({ onSignIn }){
         })
         .then((r) => r.json())
         .then((user) => onSignIn(user))
+        return (
+            <h2>Welcome, {user.username}</h2>
+        )
     }
     return (
         <form onSubmit={handleSubmit}>

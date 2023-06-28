@@ -5,7 +5,9 @@ import Nav from "./Nav";
 import Footer from "./Footer";
 import OwnerPage from "./OwnerPage";
 import LocationPage from "./LocationPage";
-// import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
 
 function App() {
   const [boats, setBoats] = useState([]);
@@ -41,7 +43,7 @@ function App() {
 
   return (
     <main>
-      <Nav onSignOut={setUser}/>
+      <Nav />
       <Switch>
       <Route path='/boats'>
       <BoatPage boats={boats} />
@@ -51,6 +53,15 @@ function App() {
       </Route>
       <Route path='/owners'>
       <OwnerPage owners={owners} />
+      </Route>
+      <Route path='/signup'>
+        <SignUp onSignUp={setUser}/>
+      </Route>
+      <Route path='/signin'>
+        <SignIn onSignIn={setUser} user={user}/>
+      </Route>
+      <Route path='/signout'>
+        <SignOut onSignOut={setUser}/>
       </Route>
       </Switch>
       <Footer />
