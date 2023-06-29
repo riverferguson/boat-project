@@ -55,7 +55,7 @@ const BoatEdit = ({ boatEdit, updateBoat }) => {
         .then((r) => {
           if (r.ok) {
             r.json().then((data) => {
-              boatEdit(data);
+              updateBoat(data);
               resetForm({ values: '' });
               history.push('/');
             });

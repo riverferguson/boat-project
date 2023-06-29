@@ -136,9 +136,12 @@ class BoatsById(Resource):
         if not boat_by_id:
             return make_response({"error": "Boat not found"}, 404)
         try:
-            data = request.get_json()
-            for key in data:
-                setattr(boat_by_id, key, data[key])
+            boat_data = request.get_json().get('boat')
+            location_data = request.get_json().get('location')
+            for key in location_data:
+                setattr(boat_by_id.location, key, location_data[key])
+            for key in boat_data:
+                setattr(boat_by_id, key, boat_data[key])
             db.session.commit()
             return make_response(boat_by_id.to_dict(), 200)
         except Exception as e:
