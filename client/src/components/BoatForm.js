@@ -1,64 +1,62 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { useHistory } from "react-router-dom";
-import { useFormik } from "formik";
-import * as yup from "yup";
+import React, { useState } from 'react';
+import styled from 'styled-components';
+import { useHistory } from 'react-router-dom';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
 
 const BoatForm = ({ addBoat }) => {
   const [errors, setErrors] = useState([]);
   const history = useHistory();
 
   const boatSchema = yup.object().shape({
-    make: yup.string()
+    make: yup
+      .string()
       .min(1, 'Make must be at least 1 character')
       .max(30, 'Make must be at most 30 characters')
       .required('Make is required'),
-    model: yup.string()
+    model: yup
+      .string()
       .min(1, 'Model must be at least 1 character')
       .max(50, 'Model must be at most 50 characters')
       .required('Model is required'),
-    description: yup.string()
-      .required('Description is required'),
-    price: yup.number()
+    description: yup.string().required('Description is required'),
+    price: yup
+      .number()
       .min(1, 'Price must be greater than $1.00')
       .max(1000000000000, 'Price must not be greater than $1,000,000,000,000'),
-    image: yup.string()
-      .required('Image is required'),
-    city: yup.string()
-      .required('City is required'),
-    state: yup.string()
-    .required('State is required'),
-    country: yup.string()
-    .required('Country is required'),
+    image: yup.string().required('Image is required'),
+    city: yup.string().required('City is required'),
+    state: yup.string().required('State is required'),
+    country: yup.string().required('Country is required'),
   });
 
   const formik = useFormik({
     initialValues: {
-      make: "",
-      model: "",
-      description: "",
-      price: "",
-      image: "",
-      city: "",
-      state: "",
-      country: ""
+      make: '',
+      model: '',
+      description: '',
+      price: '',
+      image: '',
+      city: '',
+      state: '',
+      country: '',
     },
     validationSchema: boatSchema,
     onSubmit: (values, { resetForm }) => {
-      const {make, model, image, price, description, city, state, country} = values
-      fetch("/boats", {
-        method: "POST",
+      const { make, model, image, price, description, city, state, country } = values;
+      fetch('/boats', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
-        body: JSON.stringify({boat:{make, model, image, price, description}, location:{city, state, country}}),
+        body: JSON.stringify({ boat: { make, model, image, price, description }, location: { city, state, country } }),
       })
         .then((r) => {
           if (r.ok) {
             r.json().then((data) => {
               addBoat(data);
-              resetForm({ values: "" });
-              history.push("/");
+              resetForm({ values: '' });
+              history.push('/');
             });
           } else {
             r.json().then((error) => setErrors(error.message));
@@ -70,48 +68,20 @@ const BoatForm = ({ addBoat }) => {
 
   return (
     <div className="App">
-      <p className="errors">{errors}</p>
+      <ErrorMessage>{errors}</ErrorMessage>
       <Form onSubmit={formik.handleSubmit}>
         <label>Make </label>
-        <input
-          type="text"
-          name="make"
-          value={formik.values.make}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.make ? (
-          <div className="error-message show">{formik.errors.make}</div>
-        ) : null}
+        <input type="text" name="make" value={formik.values.make} onChange={formik.handleChange} />
+        {formik.errors.make && <ErrorMessage>{formik.errors.make}</ErrorMessage>}
         <label>Model</label>
-        <input
-          type="text"
-          name="model"
-          value={formik.values.model}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.model ? (
-          <div className="error-message show">{formik.errors.model}</div>
-        ) : null}
+        <input type="text" name="model" value={formik.values.model} onChange={formik.handleChange} />
+        {formik.errors.model && <ErrorMessage>{formik.errors.model}</ErrorMessage>}
         <label>Price</label>
-        <input
-          type="number"
-          name="price"
-          value={formik.values.price}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.price ? (
-          <div className="error-message show">{formik.errors.price}</div>
-        ) : null}
+        <input type="number" name="price" value={formik.values.price} onChange={formik.handleChange} />
+        {formik.errors.price && <ErrorMessage>{formik.errors.price}</ErrorMessage>}
         <label>Image</label>
-        <input
-          type="text"
-          name="image"
-          value={formik.values.image}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.image ? (
-          <div className="error-message show">{formik.errors.image}</div>
-        ) : null}
+        <input type="text" name="image" value={formik.values.image} onChange={formik.handleChange} />
+        {formik.errors.image && <ErrorMessage>{formik.errors.image}</ErrorMessage>}
         <label>Description</label>
         <textarea
           type="text"
@@ -121,39 +91,16 @@ const BoatForm = ({ addBoat }) => {
           value={formik.values.description}
           onChange={formik.handleChange}
         />
-        {formik.errors.description ? (
-          <div className="error-message show">{formik.errors.description}</div>
-        ) : null}
+        {formik.errors.description && <ErrorMessage>{formik.errors.description}</ErrorMessage>}
         <label>City</label>
-        <input
-          type="text"
-          name="city"
-          value={formik.values.city}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.city ? (
-          <div className="error-message show">{formik.errors.city}</div>
-        ) : null}
+        <input type="text" name="city" value={formik.values.city} onChange={formik.handleChange} />
+        {formik.errors.city && <ErrorMessage>{formik.errors.city}</ErrorMessage>}
         <label>State</label>
-        <input
-          type="text"
-          name="state"
-          value={formik.values.state}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.state ? (
-          <div className="error-message show">{formik.errors.state}</div>
-        ) : null}
+        <input type="text" name="state" value={formik.values.state} onChange={formik.handleChange} />
+        {formik.errors.state && <ErrorMessage>{formik.errors.state}</ErrorMessage>}
         <label>Country</label>
-        <input
-          type="text"
-          name="country"
-          value={formik.values.country}
-          onChange={formik.handleChange}
-        />
-        {formik.errors.country ? (
-          <div className="error-message show">{formik.errors.country}</div>
-        ) : null}
+        <input type="text" name="country" value={formik.values.country} onChange={formik.handleChange} />
+        {formik.errors.country && <ErrorMessage>{formik.errors.country}</ErrorMessage>}
         <input type="submit" />
       </Form>
     </div>
@@ -163,19 +110,26 @@ const BoatForm = ({ addBoat }) => {
 export default BoatForm;
 
 const Form = styled.form`
-display: flex;
-flex-direction: column;
-width: 400px;
-margin: auto;
-font-family: Arial;
-font-size: 30px;
-input[type="submit"] {
-background-color: gray;
-color: white;
-height: 40px;
-font-family: Arial;
-font-size: 30px;
-margin-top: 10px;
-margin-bottom: 10px;
-}
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  margin: auto;
+  font-family: Arial;
+  font-size: 30px;
+
+  input[type='submit'] {
+    background-color: gray;
+    color: white;
+    height: 40px;
+    font-family: Arial;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+`;
+
+const ErrorMessage = styled.div`
+  font-size: 14px;
+  color: red;
+  margin-top: 5px;
 `;
