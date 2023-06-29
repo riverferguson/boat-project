@@ -28,7 +28,6 @@ function Copyright(props) {
     </Typography>
   );
 }
-// import {Link} from 'react-router-dom'
 
 function SignIn({ onChange }){
     const [username, setUsername] = useState("")
