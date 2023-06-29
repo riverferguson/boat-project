@@ -62,7 +62,7 @@ function App() {
     setBoatEdit((current) => !current);
     history.push({
       pathname: `/boats/edit/${boat.id}`,
-      state: boat,
+      state: boat, owners, location
     });
   };
 
@@ -94,7 +94,7 @@ function App() {
       <Switch>
         <Route exact path="/boats">
           <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />
-          <BoatPage boats={filteredBoats} locations={location} />
+          <BoatPage boats={filteredBoats}/>
         </Route>
         <Route exact path="/owners">
           <OwnerPage owners={owners} />
@@ -103,10 +103,10 @@ function App() {
           <BoatForm addBoat={addBoat} />
         </Route>
         <Route exact path="/boats/:id">
-          <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat} />
+          <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat} location={location} owners={owners}/>
         </Route>
         <Route exact path="/boats/edit/:id">
-          <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat} />
+          <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat}  />
         </Route>
         <Route path="/signup">
           <SignUp onChange={onChange} />
