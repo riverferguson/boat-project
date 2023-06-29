@@ -42,7 +42,7 @@ class Location(db.Model, SerializerMixin):
         return country
         
     def __repr__(self):
-        return f'<Location {self.id}: {self.address}>'
+        return f'<Location {self.id}>'
     
 class Owner(db.Model, SerializerMixin):
     __tablename__ = 'owners'
