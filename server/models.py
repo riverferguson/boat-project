@@ -119,5 +119,3 @@ class Boat(db.Model, SerializerMixin):
     
     def __repr__(self):
         return f'<Boat {self.id}: {self.make} {self.model}'
-    
-    
