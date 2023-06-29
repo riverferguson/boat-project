@@ -1,4 +1,5 @@
 import {useState} from 'react'
+// import {Link} from 'react-router-dom'
 
 function SignIn({ onChange }){
     const [username, setUsername] = useState("")
@@ -6,7 +7,7 @@ function SignIn({ onChange }){
 
     const handleSubmit = (e) => {
         const userObj = {username: username, password: password}
-        // debugger
+        
         e.preventDefault(e)
         fetch("/signin", {
             method: 'POST',
@@ -18,6 +19,7 @@ function SignIn({ onChange }){
         .then((r) => {
             if(r.ok){
                 r.json().then(onChange)
+                // <Link to='/' > <Link/>
             } else {
                 alert('Invalid Credentials')
             }

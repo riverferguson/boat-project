@@ -36,12 +36,16 @@ const Nav = ({user, userStatus}) => {
                   <Link to='/boats/new'>Sell</Link>
                   </li>
 
-                  <li className='nav-link-wrapper' onClick={handleToggle}>
-                  {userStatus ? "SignOut" : "SignIn"}
+                  <li className='nav-link-wrapper'>
+                  <Link to="/signin">SignIn</Link>
                   </li>
 
                   <li className='nav-link-wrapper'>
                     <Link to="/signup">Register as an owner</Link>
+                  </li>
+
+                  <li className='nav-link-wrapper'>
+                  <Link to="/signout">SignOut</Link>
                   </li>
     
                   <li className='nav-link-wrapper'>
