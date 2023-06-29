@@ -86,10 +86,10 @@ if __name__ == '__main__':
         # print('done seeding')
         
         
-        l1 = Location(city='San Diego', state='California', country='USA', address='123 shithead lane')
-        l2 = Location(city='Los Angeles', state='California', country='USA', address='123 spooner lane')
-        l3 = Location(city='Morro Bay', state='California', country='USA', address='123 creek lane')
-        l4 = Location(city='Seattle', state='Washington', country='USA', address='123 broad lane')
+        l1 = Location(city='San Diego', state='California', country='USA')
+        l2 = Location(city='Los Angeles', state='California', country='USA')
+        l3 = Location(city='Morro Bay', state='California', country='USA')
+        l4 = Location(city='Seattle', state='Washington', country='USA')
         
         locations = [l1, l2, l3, l4]
         db.session.add_all(locations)
