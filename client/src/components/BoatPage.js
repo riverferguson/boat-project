@@ -3,7 +3,6 @@ import BoatCard from './BoatCard'
 
 
 const BoatPage = ({boats}) => {
-  console.log(boats)
 const mappedBoats = boats.map(boat => <BoatCard key={boat.id} boat={boat}/>)
 
 

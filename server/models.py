@@ -21,8 +21,6 @@ class Location(db.Model, SerializerMixin):
 
     serialize_only = ('id', 'city', 'state', 'country')
     
-    
-    
     @validates('city')
     def validate_city(self, key, city):
         if not city:
@@ -51,15 +49,14 @@ class Owner(db.Model, SerializerMixin):
     first_name = db.Column(db.String)
     last_name = db.Column(db.String)
     bio = db.Column(db.String)
-    email = db.Column(db.String, unique=True)
-    username = db.Column(db.String, unique=True)
+    email = db.Column(db.String)
+    username = db.Column(db.String)
     password = db.Column(db.String)
     created_at = db.Column(db.DateTime, server_default=db.func.now())
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     boats = db.relationship('Boat', back_populates='owner')
-
-    serialize_only = ('id', 'first_name', 'last_name', 'bio', 'email', 'username', 'password')
+    serialize_only = ('id', 'first_name', 'last_name', 'bio', 'email', 'username', '-password')
     
     @validates('name')
     def validate_name(self, key, name):
@@ -74,7 +71,7 @@ class Owner(db.Model, SerializerMixin):
         return bio
     
     def __repr__(self):
-        return f'<Owner {self.id}: {self.name}'
+        return f'<Owner {self.id}: {self.username}'
     
 class Boat(db.Model, SerializerMixin):
     __tablename__ = 'boats'

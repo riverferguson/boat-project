@@ -11,7 +11,7 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import SignOut from "./SignOut";
 import Album from "./Album";
-import Search from "../Search";
+import Search from "./Search";
 
 function App() {
   const [boats, setBoats] = useState([]);
@@ -22,6 +22,7 @@ function App() {
   const [searchMake, setSearchMake] = useState("");
   const [searchModel, setSearchModel] = useState("");
   const history = useHistory();
+  const [userStatus, setUserStatus] = useState(false)
 
   useEffect(() => {
     fetch("/boats")
@@ -45,6 +46,7 @@ function App() {
     fetch("/check_session").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
+        setUserStatus(current => !current)
       }
     });
   }, []);
@@ -69,7 +71,6 @@ function App() {
       boats.map((boat) => (boat.id === updated_boat.id ? updated_boat : boat))
     );
 
-  const onChange = (user) => setUser(user);
 
   const filteredBoats = boats.filter((boat) => {
     const makeMatch =
@@ -85,9 +86,11 @@ function App() {
     return makeMatch || modelMatch;
   });
 
+  const onChange = (user) => setUser(user)
+
   return (
     <main>
-      <Nav onSignOut={setUser} />
+      <Nav user={user} userStatus={userStatus} />
       <Switch>
         <Route exact path="/boats">
           <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />

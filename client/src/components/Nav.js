@@ -1,6 +1,10 @@
-import React from 'react'
 import { Link } from 'react-router-dom'
 import './index.css'
+import { useState } from 'react'
+
+
+
+const Nav = ({user, userStatus}) => {
 
 const Nav = ({ onSignOut }) => {
     const handleSignOut = () => {
@@ -8,10 +12,10 @@ const Nav = ({ onSignOut }) => {
             method: "DELETE",
         }).then(() => onSignOut());
     }
-
+  }
     return (
         <nav className="nav">
-        <Link to="/boats" className="site-title">
+        <Link to="/" className="site-title">
         <img className='logo' src={process.env.PUBLIC_URL + "/images/logo.jpg"} alt='oops'/> 
         <span className='shop-name'>&nbsp; Pacific Boat Club</span>
               </Link>
@@ -27,17 +31,17 @@ const Nav = ({ onSignOut }) => {
                   <li className='nav-link-wrapper'>
                   <Link to='/boats/new'>Sell</Link>
                   </li>
-    
+
                   <li className='nav-link-wrapper'>
                   <Link to="/signin">SignIn</Link>
                   </li>
-    
+
                   <li className='nav-link-wrapper'>
-                    <Link to="/signup">Signup</Link>
+                    <Link to="/signup">SignUp</Link>
                   </li>
 
                   <li className='nav-link-wrapper'>
-                    <Link to="/signout">SignOut</Link>
+                  <Link to="/signout">SignOut</Link>
                   </li>
 
                   <li className='nav-link-wrapper'>
