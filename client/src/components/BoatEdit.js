@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 
-const BoatForm = ({ addBoat }) => {
+const BoatEdit = ({ boatEdit, updateBoat }) => {
   const [errors, setErrors] = useState([]);
   const history = useHistory();
+  const { id } = useParams();
 
   const boatSchema = yup.object().shape({
     make: yup
@@ -44,8 +45,8 @@ const BoatForm = ({ addBoat }) => {
     validationSchema: boatSchema,
     onSubmit: (values, { resetForm }) => {
       const { make, model, image, price, description, city, state, country } = values;
-      fetch('/boats', {
-        method: 'POST',
+      fetch(`/boats/${id}`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -54,7 +55,7 @@ const BoatForm = ({ addBoat }) => {
         .then((r) => {
           if (r.ok) {
             r.json().then((data) => {
-              addBoat(data);
+              boatEdit(data);
               resetForm({ values: '' });
               history.push('/');
             });
@@ -72,16 +73,24 @@ const BoatForm = ({ addBoat }) => {
       <Form onSubmit={formik.handleSubmit}>
         <label>Make </label>
         <input type="text" name="make" value={formik.values.make} onChange={formik.handleChange} />
-        {formik.errors.make && <ErrorMessage>{formik.errors.make}</ErrorMessage>}
+        {formik.touched.make && formik.errors.make && (
+          <ErrorMessage>{formik.errors.make}</ErrorMessage>
+        )}
         <label>Model</label>
         <input type="text" name="model" value={formik.values.model} onChange={formik.handleChange} />
-        {formik.errors.model && <ErrorMessage>{formik.errors.model}</ErrorMessage>}
+        {formik.touched.model && formik.errors.model && (
+          <ErrorMessage>{formik.errors.model}</ErrorMessage>
+        )}
         <label>Price</label>
         <input type="number" name="price" value={formik.values.price} onChange={formik.handleChange} />
-        {formik.errors.price && <ErrorMessage>{formik.errors.price}</ErrorMessage>}
+        {formik.touched.price && formik.errors.price && (
+          <ErrorMessage>{formik.errors.price}</ErrorMessage>
+        )}
         <label>Image</label>
         <input type="text" name="image" value={formik.values.image} onChange={formik.handleChange} />
-        {formik.errors.image && <ErrorMessage>{formik.errors.image}</ErrorMessage>}
+        {formik.touched.image && formik.errors.image && (
+          <ErrorMessage>{formik.errors.image}</ErrorMessage>
+        )}
         <label>Description</label>
         <textarea
           type="text"
@@ -91,23 +100,31 @@ const BoatForm = ({ addBoat }) => {
           value={formik.values.description}
           onChange={formik.handleChange}
         />
-        {formik.errors.description && <ErrorMessage>{formik.errors.description}</ErrorMessage>}
+        {formik.touched.description && formik.errors.description && (
+          <ErrorMessage>{formik.errors.description}</ErrorMessage>
+        )}
         <label>City</label>
         <input type="text" name="city" value={formik.values.city} onChange={formik.handleChange} />
-        {formik.errors.city && <ErrorMessage>{formik.errors.city}</ErrorMessage>}
+        {formik.touched.city && formik.errors.city && (
+          <ErrorMessage>{formik.errors.city}</ErrorMessage>
+        )}
         <label>State</label>
         <input type="text" name="state" value={formik.values.state} onChange={formik.handleChange} />
-        {formik.errors.state && <ErrorMessage>{formik.errors.state}</ErrorMessage>}
+        {formik.touched.state && formik.errors.state && (
+          <ErrorMessage>{formik.errors.state}</ErrorMessage>
+        )}
         <label>Country</label>
         <input type="text" name="country" value={formik.values.country} onChange={formik.handleChange} />
-        {formik.errors.country && <ErrorMessage>{formik.errors.country}</ErrorMessage>}
+        {formik.touched.country && formik.errors.country && (
+          <ErrorMessage>{formik.errors.country}</ErrorMessage>
+        )}
         <input type="submit" />
       </Form>
     </div>
   );
 };
 
-export default BoatForm;
+export default BoatEdit;
 
 const Form = styled.form`
   display: flex;

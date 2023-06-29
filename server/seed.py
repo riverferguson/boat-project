@@ -86,10 +86,10 @@ if __name__ == '__main__':
         # print('done seeding')
         
         
-        l1 = Location(city='San Diego', state='California', country='USA')
-        l2 = Location(city='Los Angeles', state='California', country='USA')
-        l3 = Location(city='Morro Bay', state='California', country='USA')
-        l4 = Location(city='Seattle', state='Washington', country='USA')
+        l1 = Location(city='San Diego', state='California', country='USA', address='123 shithead lane')
+        l2 = Location(city='Los Angeles', state='California', country='USA', address='123 spooner lane')
+        l3 = Location(city='Morro Bay', state='California', country='USA', address='123 creek lane')
+        l4 = Location(city='Seattle', state='Washington', country='USA', address='123 broad lane')
         
         locations = [l1, l2, l3, l4]
         db.session.add_all(locations)
@@ -107,10 +107,10 @@ if __name__ == '__main__':
         db.session.commit()
         
         
-        b1 = Boat(make='Bayliner', model='Cruiser', price = 200000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
-        b2 = Boat(make='Boston Whaler', model='Cruiser', price = 400000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
-        b3 = Boat(make='Carver', model='Yacht', price = 2000000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
-        b4 = Boat(make='Malibu', model='Tow-boat', price = 300000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some shitty boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b1 = Boat(make='Bayliner', model='Cruiser', price = 200000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b2 = Boat(make='Boston Whaler', model='Cruiser', price = 400000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b3 = Boat(make='Carver', model='Yacht', price = 2000000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
+        b4 = Boat(make='Malibu', model='Tow-boat', price = 300000, image='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPGlsFFpgOvBxF8lGopXJO82TU99-rQIdCJw&usqp=CAU', description='just some boat', owner_id=rc([owner.id for owner in owners]), location_id=rc([location.id for location in locations]))
         
         boats = [b1, b2, b3, b4]
         db.session.add_all(boats)

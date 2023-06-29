@@ -92,12 +92,13 @@
             "index": "pypi",
             "version": "==4.0.0"
         },
-        "flask-dotenv": {
+        "flask-login": {
             "hashes": [
-                "sha256:8ef7d21877fdebdb46276da07ccb9a55b45fa657e476b0c7b7f5f1fa071057f6"
+                "sha256:1ef79843f5eddd0f143c2cd994c1b05ac83c0401dc6234c143495af9a939613f",
+                "sha256:c0a7baa9fdc448cdd3dd6f0939df72eec5177b2f7abe6cb82fc934d29caac9c3"
             ],
             "index": "pypi",
-            "version": "==0.1.2"
+            "version": "==0.6.2"
         },
         "flask-migrate": {
             "hashes": [

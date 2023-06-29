@@ -1,8 +1,16 @@
+<<<<<<<< HEAD:server/migrations/versions/7bf6f9c80dcd_create_tables.py
 """create tables
 
 Revision ID: 7bf6f9c80dcd
 Revises: 
 Create Date: 2023-06-28 13:24:50.610177
+========
+"""create models
+
+Revision ID: eb05fdcec21b
+Revises: 
+Create Date: 2023-06-27 21:37:28.022776
+>>>>>>>> main:server/migrations/versions/eb05fdcec21b_create_models.py
 
 """
 from alembic import op
@@ -10,7 +18,11 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
+<<<<<<<< HEAD:server/migrations/versions/7bf6f9c80dcd_create_tables.py
 revision = '7bf6f9c80dcd'
+========
+revision = 'eb05fdcec21b'
+>>>>>>>> main:server/migrations/versions/eb05fdcec21b_create_models.py
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -37,7 +49,9 @@ def upgrade():
     sa.Column('password', sa.String(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('boats',
     sa.Column('id', sa.Integer(), nullable=False),

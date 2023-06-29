@@ -14,11 +14,6 @@ api_key = os.environ.get('SECRET_KEY')
 # Local imports
 
 # Instantiate app, set attributes
-BASE_DIR = os.path.abspath(os.path.dirname(__file__))
-DATABASE = os.environ.get(
-    "DB_URI", f"sqlite:///{os.path.join(BASE_DIR, 'app.db')}")
-
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = api_key
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'

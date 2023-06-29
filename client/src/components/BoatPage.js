@@ -1,15 +1,17 @@
-
 import React from 'react'
 import BoatCard from './BoatCard'
 
 
-const BoatPage = ({boats, location}) => {
-const mappedBoats = boats.map(boat => <BoatCard key={boat.id} boat={boat} />)
+const BoatPage = ({boats}) => {
+const mappedBoats = boats.map(boat => <BoatCard key={boat.id} boat={boat}/>)
+
 
   return (
-    <div>
+    <main>
+      <div>
       {mappedBoats}
-    </div>
+      </div>
+    </main>
   )
 }
 

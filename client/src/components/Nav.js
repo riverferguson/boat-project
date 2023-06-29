@@ -6,15 +6,11 @@ import { useState } from 'react'
 
 const Nav = ({user, userStatus}) => {
 
-  const handleToggle = () => {
-    if (userStatus){
-      return (
-        <Link to="/signin">SignIn</Link>
-      )
-    } else {
-      return (
-        <Link to="/signout">SignOut</Link>
-      )
+const Nav = ({ onSignOut }) => {
+    const handleSignOut = () => {
+        fetch('/logout', {
+            method: "DELETE",
+        }).then(() => onSignOut());
     }
   }
     return (
@@ -41,16 +37,16 @@ const Nav = ({user, userStatus}) => {
                   </li>
 
                   <li className='nav-link-wrapper'>
-                    <Link to="/signup">Register as an owner</Link>
+                    <Link to="/signup">SignUp</Link>
                   </li>
 
                   <li className='nav-link-wrapper'>
                   <Link to="/signout">SignOut</Link>
                   </li>
-    
+
                   <li className='nav-link-wrapper'>
-                  <Link to="/locations">Locations</Link>
-                  </li>
+                  <Link to="/home">About Us</Link>
+                  </li>                                            
                   
               </ul>
           </nav>

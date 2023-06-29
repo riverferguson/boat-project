@@ -1,5 +1,4 @@
 
-
 function SignOut({ onChange }){
 
     const handleSignOut = () => {

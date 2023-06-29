@@ -7,6 +7,7 @@ from flask import request, make_response, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
+import ipdb
 
 # Local imports
 from config import *
@@ -23,6 +24,7 @@ from models import Owner, Location, Boat
 @app.route('/')
 def home():
     return 'you made it home'
+
 class SignUp(Resource):
     
     def post(self):
@@ -79,7 +81,6 @@ class SignOut(Resource):
         return make_response({'message': '204: No Content'}, 204)
 
 api.add_resource(SignOut, '/signout')
-
 class Boats(Resource):
     def get(self):
         boats = [boat.to_dict() for boat in Boat.query.all()]
@@ -87,24 +88,28 @@ class Boats(Resource):
 
     def post(self):
         try:
-            data = request.get_json()
-            boat = Boat(**data)
+            boat_data = request.get_json().get('boat')
+            location_data = request.get_json().get('location')
+            location = Location(**location_data)
+            db.session.add(location)
+            db.session.commit()
+            boat = Boat(**boat_data)
+            boat.location = location
+            boat.owner_id = session.get('user_id') #removed hardcoded id
             db.session.add(boat)
             db.session.commit()
             return make_response(jsonify(boat.to_dict()), 201)
         except Exception as e:
             return make_response(jsonify({"errors": [str(e)]}), 400)
-
 api.add_resource(Boats, '/boats')
 
 class BoatsById(Resource):
     def get(self, id):
         try:
-            boat = Boats.query.get(id)
+            boat = Boat.query.get(id)
             return make_response(jsonify(boat.to_dict()), 200)
         except Exception:
             return make_response(jsonify({"error": "Boat not found"}), 404)
-
     def delete(self, id):
         try:
             boat = db.session.get(Boat, id)
@@ -113,7 +118,6 @@ class BoatsById(Resource):
             return make_response(jsonify({}), 204)
         except Exception:
             return make_response(jsonify({"errors": "Boats not found"}), 404)
-
     def patch(self, id):
         boat_by_id = db.session.get(Boat, id)
         if not boat_by_id:
@@ -126,7 +130,6 @@ class BoatsById(Resource):
             return make_response(boat_by_id.to_dict(), 200)
         except Exception as e:
             return make_response({"errors": [str(e)]}, 400)
-
 api.add_resource(BoatsById, '/boats/<int:id>')
 
 class Owners(Resource):
@@ -143,7 +146,6 @@ class OwnersById(Resource):
             return make_response(jsonify(owner.to_dict()), 200)
         except Exception:
             return make_response(jsonify({"error": "owner not found"}), 404)
-
     def patch(self, id):
         owner_by_id = db.session.get(Owner, id)
         if not owner_by_id:
@@ -163,7 +165,6 @@ class Locations(Resource):
     def get(self):
         locations = [location.to_dict() for location in Location.query.all()]
         return make_response(jsonify(locations), 200)
-
 api.add_resource(Locations, '/locations')
 
 if __name__ == '__main__':
