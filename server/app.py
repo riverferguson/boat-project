@@ -19,6 +19,17 @@ from models import Owner, Location, Boat
 def home():
     return 'you made it home'
 
+def login_required(func):
+    @wraps(func)
+    def decorated_function(*args, **kwargs):
+        boat_owner = session.get('user_id')
+        boat_to_delete = db.session.get(Boat, kwargs)
+        if not session['user_id'] or boat_owner != boat_to_delete.owner_id:
+            return make_response({'error': 'Unauthorized'}, 401)
+        return func(*args, **kwargs)
+    return decorated_function
+    
+
 class SignUp(Resource):
     
     def post(self):
@@ -81,7 +92,9 @@ class Boats(Resource):
         boats = [boat.to_dict() for boat in Boat.query.all()]
         return make_response(jsonify(boats), 200)
 
-    def post(self):
+    def post(self):  # sourcery skip: extract-method
+        if not session['user_id']:
+            return make_response({'error': 'Unauthorized'}, 401)
         try:
             boat_data = request.get_json().get('boat')
             location_data = request.get_json().get('location')
@@ -107,6 +120,7 @@ class BoatsById(Resource):
         except Exception:
             return make_response(jsonify({"error": "Boat not found"}), 404)
         
+    @login_required
     def delete(self, id):
         try:
             boat = db.session.get(Boat, id)
@@ -116,6 +130,7 @@ class BoatsById(Resource):
         except Exception:
             return make_response(jsonify({"errors": "Boats not found"}), 404)
     
+    @login_required
     def patch(self, id):
         boat_by_id = db.session.get(Boat, id)
         if not boat_by_id:
