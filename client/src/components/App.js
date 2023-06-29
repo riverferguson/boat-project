@@ -11,14 +11,17 @@ import SignUp from "./SignUp";
 import SignIn from "./SignIn";
 import SignOut from "./SignOut";
 import Album from "./Album";
+import Search from "../Search";
 
 function App() {
   const [boats, setBoats] = useState([]);
   const [owners, setOwners] = useState([]);
   const [location, setLocation] = useState([]);
   const [user, setUser] = useState(null);
-  const [boatEdit, setBoatEdit] = useState(false)
-  const history = useHistory()
+  const [boatEdit, setBoatEdit] = useState(false);
+  const [searchMake, setSearchMake] = useState("");
+  const [searchModel, setSearchModel] = useState("");
+  const history = useHistory();
 
   useEffect(() => {
     fetch("/boats")
@@ -47,60 +50,73 @@ function App() {
   }, []);
 
   const addBoat = (newBoat) => {
-    setBoats([...boats, newBoat])
-  }
+    setBoats([...boats, newBoat]);
+  };
 
-  const deleteBoat = (deleted_boat) => setBoats(boats => boats.filter((boat) => boat.id !== deleted_boat.id))
+  const deleteBoat = (deleted_boat) =>
+    setBoats((boats) => boats.filter((boat) => boat.id !== deleted_boat.id));
 
   const handleEdit = (boat) => {
-    setBoatEdit(current => !current)
+    setBoatEdit((current) => !current);
     history.push({
       pathname: `/boats/edit/${boat.id}`,
-      state: boat
-    })
-  }
+      state: boat,
+    });
+  };
 
-  const updateBoat = (updated_boat) => setBoats(boats => boats.map(boat =>{
-    if(boat.id === updated_boat.id){
-      return updated_boat
-    } else {
-      return boat
-    }
-  } ))
+  const updateBoat = (updated_boat) =>
+    setBoats((boats) =>
+      boats.map((boat) => (boat.id === updated_boat.id ? updated_boat : boat))
+    );
 
-  const onChange = (user) => setUser(user)
+  const onChange = (user) => setUser(user);
+
+  const filteredBoats = boats.filter((boat) => {
+    const makeMatch =
+      !searchMake || searchMake === "make"
+        ? boat.make.toLowerCase().includes(searchModel.toLowerCase())
+        : false;
+
+    const modelMatch =
+      !searchMake || searchMake === "model"
+        ? boat.model.toLowerCase().includes(searchModel.toLowerCase())
+        : false;
+
+    return makeMatch || modelMatch;
+  });
 
   return (
     <main>
-      <Nav onSignOut={setUser}/>
+      <Nav onSignOut={setUser} />
       <Switch>
-      <Route exact path='/boats'>
-      <BoatPage boats={boats} locations={location}/>
-      </Route>
-      <Route exact path='/owners'>
-      <OwnerPage owners={owners} />
-      </Route>
-      <Route exact path='/boats/new'>
-      <BoatForm addBoat={addBoat}/>
-      </Route>
-      <Route exact path='/boats/:id'>
-      <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat}/>
-      </Route>
-      <Route exact path='/boats/edit/:id'>
-        <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat}/>
-      </Route>
-      <Route path='/signup'>
-        <SignUp onChange={onChange}/>
-      </Route>
-      <Route path='/signin'>
-        <SignIn onChange={onChange}/>
-      </Route>
-      <Route path='/signout'>
-        <SignOut onChange={onChange}/>
-      </Route>
+        <Route exact path="/boats">
+          <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />
+          <BoatPage boats={filteredBoats} locations={location} />
+        </Route>
+        <Route exact path="/owners">
+          <OwnerPage owners={owners} />
+        </Route>
+        <Route exact path="/boats/new">
+          <BoatForm addBoat={addBoat} />
+        </Route>
+        <Route exact path="/boats/:id">
+          <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat} />
+        </Route>
+        <Route exact path="/boats/edit/:id">
+          <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat} />
+        </Route>
+        <Route path="/signup">
+          <SignUp onChange={onChange} />
+        </Route>
+        <Route path="/signin">
+          <SignIn onChange={onChange} />
+        </Route>
+        <Route path="/signout">
+          <SignOut onChange={onChange} />
+        </Route>
       </Switch>
-      <Route path='/home'>
-        <Album/>
+      <Route path="/home">
+        <Album />
       </Route>
       <Footer />
     </main>

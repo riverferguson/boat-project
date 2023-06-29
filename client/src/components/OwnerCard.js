@@ -21,13 +21,13 @@ const {first_name, last_name, bio, boats} = owner
 
   return (
     <Container maxWidth="sm">
-    <Card sx={{ maxWidth: 345 }}>
+    <Card sx={{ maxWidth: 345, margin: '20px' }}>
       <CardContent>
         <Typography gutterBottom variant="h5" component="div">
-           Name: {first_name} {last_name}
+            {first_name} {last_name}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {bio}
+        About me: {bio}
         </Typography>
       </CardContent>
       <CardActions>
