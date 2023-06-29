@@ -28,6 +28,7 @@ function Copyright(props) {
     </Typography>
   );
 }
+// import {Link} from 'react-router-dom'
 
 function SignIn({ onChange }){
     const [username, setUsername] = useState("")
@@ -35,7 +36,7 @@ function SignIn({ onChange }){
 
     const handleSubmit = (e) => {
         const userObj = {username: username, password: password}
-        // debugger
+        
         e.preventDefault(e)
         fetch("/signin", {
             method: 'POST',
@@ -47,6 +48,7 @@ function SignIn({ onChange }){
         .then((r) => {
             if(r.ok){
                 r.json().then(onChange)
+                // <Link to='/' > <Link/>
             } else {
                 alert('Invalid Credentials')
             }
@@ -81,6 +83,7 @@ function SignIn({ onChange }){
             label="Username"
             name="username"
             autoComplete="username"
+            onChange={(e) => setUsername(e.target.value)}
             autoFocus
             
                         />
@@ -93,6 +96,7 @@ function SignIn({ onChange }){
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
