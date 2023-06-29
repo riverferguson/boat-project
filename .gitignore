@@ -1,5 +1,5 @@
 # Created by https://www.gitignore.io/api/node
-flask.env
+.env
 .DS_Store
 
 ### Node ###

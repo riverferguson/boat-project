@@ -1,22 +1,29 @@
 import {useState} from 'react'
 
-function SignIn({ onSignIn, user }){
+function SignIn({ onChange }){
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
 
     const handleSubmit = (e) => {
+        const userObj = {username: username, password: password}
+        // debugger
         e.preventDefault(e)
         fetch("/signin", {
             method: 'POST',
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
-            body: JSON.stringify({username, password})
+            body: JSON.stringify(userObj)
         })
-        .then((r) => r.json())
-        .then((user) => onSignIn(user))
+        .then((r) => {
+            if(r.ok){
+                r.json().then(onChange)
+            } else {
+                alert('Invalid Credentials')
+            }
+        })
     }
-    
+
     return (
         <form onSubmit={handleSubmit}>
             <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder='Username'/>

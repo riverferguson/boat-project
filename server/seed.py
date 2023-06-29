@@ -4,6 +4,7 @@
 from random import randint, choice as rc
 from models import Owner, Location, Boat
 import datetime 
+from werkzeug.security import generate_password_hash
 
 # Remote library imports
 # from faker import Faker
@@ -96,10 +97,10 @@ if __name__ == '__main__':
         
         
         o1 = Owner(first_name='River', last_name='Ferguson', bio='lets buy a boat', email='river@gmail.com', username='BigDawg69', password='12345')
-        o2 = Owner(first_name='Guy', last_name='Buddy', bio='lets buy another boat', email='guyGetsNoBitches@gmail.com', username='Bitchless32', password='password')
-        o3 = Owner(first_name='Buddy', last_name='Guy', bio='lets buy even another boat', email='BuddyRunsPropane2U@comcast.net', username='Buddys Propane and Boats', password='jdushsueh281jk3')
-        o4 = Owner(first_name='Dirk', last_name='Diggler', bio='Captian of the shit ship', email='Dirk@yahoo.com', username='Shit Ship 42', password='DirkDirkDirk')
-        o5 = Owner(first_name='Drew', last_name='Womble', bio='Im poor and own no ships', email='drew@gmail.com', username='drew27', password='12345')
+        o2 = Owner(first_name='Guy', last_name='Buddy', bio='lets buy another boat', email='guy@gmail.com', username='Guy32', password=generate_password_hash('12345', method='scrypt'))
+        o3 = Owner(first_name='Buddy', last_name='Guy', bio='lets buy even another boat', email='BuddyRunsPropane2U@comcast.net', username='Buddys Propane and Boats', password=generate_password_hash('12345', method='scrypt'))
+        o4 = Owner(first_name='Dirk', last_name='Diggler', bio='Captian of the shit ship', email='Dirk@yahoo.com', username='Dirk42', password=generate_password_hash('12345', method='scrypt'))
+        o5 = Owner(first_name='Drew', last_name='Womble', bio='Im poor and own no ships', email='drew@gmail.com', username='drew27', password=generate_password_hash('12345', method='scrypt'))
         
         owners = [o1, o2, o3, o4, o5]
         db.session.add_all(owners)

@@ -41,6 +41,8 @@ function App() {
     });
   }, []);
 
+  const onChange = (user) => setUser(user)
+
   return (
     <main>
       <Nav />
@@ -55,13 +57,13 @@ function App() {
       <OwnerPage owners={owners} />
       </Route>
       <Route path='/signup'>
-        <SignUp onSignUp={setUser}/>
+        <SignUp onChange={onChange} />
       </Route>
       <Route path='/signin'>
-        <SignIn onSignIn={setUser} user={user}/>
+        <SignIn onChange={onChange} />
       </Route>
       <Route path='/signout'>
-        <SignOut onSignOut={setUser}/>
+        <SignOut onChange={onChange} />
       </Route>
       </Switch>
       <Footer />

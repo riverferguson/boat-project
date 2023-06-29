@@ -1,11 +1,11 @@
 
 
-function SignOut({ onSignOut }){
+function SignOut({ onChange }){
 
     const handleSignOut = () => {
-        fetch('/logout', {
+        fetch('/signout', {
             method: "DELETE",
-        }).then(() => onSignOut());
+        }).then(() => onChange(null));
     }
 
     return (

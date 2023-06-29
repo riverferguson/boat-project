@@ -56,7 +56,8 @@ class Owner(db.Model, SerializerMixin):
     updated_at = db.Column(db.DateTime, onupdate=db.func.now())
     
     boats = db.relationship('Boat', back_populates='owner')
-    
+    #TODO add in serialization for password so it isn't getting passed around
+    # serialize_only = ('-password')
     @validates('name')
     def validate_name(self, key, name):
         if not name:
@@ -70,7 +71,7 @@ class Owner(db.Model, SerializerMixin):
         return bio
     
     def __repr__(self):
-        return f'<Owner {self.id}: {self.name}'
+        return f'<Owner {self.id}: {self.username}'
     
 class Boat(db.Model, SerializerMixin):
     __tablename__ = 'boats'
