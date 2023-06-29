@@ -7,6 +7,7 @@ from flask import request, make_response, jsonify, session
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
+import ipdb
 
 # Local imports
 from config import *
@@ -79,8 +80,14 @@ class Boats(Resource):
         return make_response(jsonify(boats), 200)
     def post(self):
         try:
-            data = request.get_json()
-            boat = Boat(**data)
+            boat_data = request.get_json().get('boat')
+            location_data = request.get_json().get('location')
+            location = Location(**location_data)
+            db.session.add(location)
+            db.session.commit()
+            boat = Boat(**boat_data)
+            boat.location = location
+            boat.owner_id = 1 #session.get('owner_id')
             db.session.add(boat)
             db.session.commit()
             return make_response(jsonify(boat.to_dict()), 201)

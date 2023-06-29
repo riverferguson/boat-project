@@ -2,13 +2,11 @@
 
 .boat-card {
     text-align: center;
-    border: grey solid 1px;
     padding: 1rem;
     width: 15rem;
     height: 25rem;
     display: inline-grid;
     margin: 1rem 2rem;
-    box-shadow: 3px 4px #1e0598;
     font-weight: bolder;
   }
   
@@ -49,7 +47,7 @@ body {
 }
 
 .nav {
-    background-color: #3e219f;
+    background-color: blue;
     color: white;
     display: flex;
     justify-content: space-between;
@@ -174,5 +172,17 @@ body {
     display: inline-grid;
     margin: 1rem 2rem;
     box-shadow: 3px 4px #1e0598;
+    font-weight: bolder;
+  }
+
+
+  /* deatail-card css*/
+  .detail-card {
+    text-align: center;
+    padding: 1rem;
+    width: 15rem;
+    height: 25rem;
+    display: inline-grid;
+    margin: 1rem 2rem;
     font-weight: bolder;
   }

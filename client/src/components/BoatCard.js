@@ -1,19 +1,49 @@
-import React from 'react'
+
 import { Link } from 'react-router-dom'
-import './index.css'
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import Button from '@mui/material/Button';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import CssBaseline from '@mui/material/CssBaseline';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+import Box from '@mui/material/Box';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+//import Link from '@mui/material/Link';
+
 
 const BoatCard = ({boat}) => {
-const {id, make, model, image, price, location: {city, state}} = boat
+const {id, make, model, description, image, price, location: {city, state}} = boat
   return (
-    <div className='boat-card'>
-        <img src={image} alt={make}/>
-        <div>Make: {make}</div>
-        <div>Model: {model}</div>
-        <div>Price: {price}</div>
-        <div>Location: {city} {state}</div>
-        <Link to={`/boats/${id}`}>All Details</Link>
-    </div>
-  )
+    <Container maxWidth="sm">
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        component="img"
+        alt="green iguana"
+        height="140"
+        src={image}
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Make: {make}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        {description}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">
+      <Link to={`/boats/${id}`}>All Details</Link>
+      </Button>
+      </CardActions>
+    </Card>
+    </Container>
+  );
 }
 
 export default BoatCard

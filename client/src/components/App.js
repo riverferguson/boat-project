@@ -1,22 +1,24 @@
 import React, { useEffect, useState } from "react";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import BoatPage from "./BoatPage";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import OwnerPage from "./OwnerPage";
-import LocationPage from "./LocationPage";
-<<<<<<< HEAD
 import BoatForm from "./BoatForm";
 import BoatDetails from "./BoatDetails";
-=======
-// import SignIn from "./SignIn";
->>>>>>> main
+import BoatEdit from "./BoatEdit";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
+import Album from "./Album";
 
 function App() {
   const [boats, setBoats] = useState([]);
   const [owners, setOwners] = useState([]);
   const [location, setLocation] = useState([]);
   const [user, setUser] = useState(null);
+  const [boatEdit, setBoatEdit] = useState(false)
+  const history = useHistory()
 
   useEffect(() => {
     fetch("/boats")
@@ -36,11 +38,6 @@ function App() {
       .then((location) => setLocation(location));
   }, []);
 
-<<<<<<< HEAD
-  const addBoat = (newBoat) => {
-    setBoats([...boats, newBoat])
-  }
-=======
   useEffect(() => {
     fetch("/check_session").then((r) => {
       if (r.ok) {
@@ -48,7 +45,30 @@ function App() {
       }
     });
   }, []);
->>>>>>> main
+
+  const addBoat = (newBoat) => {
+    setBoats([...boats, newBoat])
+  }
+
+  const deleteBoat = (deleted_boat) => setBoats(boats => boats.filter((boat) => boat.id !== deleted_boat.id))
+
+  const handleEdit = (boat) => {
+    setBoatEdit(current => !current)
+    history.push({
+      pathname: `/boats/edit/${boat.id}`,
+      state: boat
+    })
+  }
+
+  const updateBoat = (updated_boat) => setBoats(boats => boats.map(boat =>{
+    if(boat.id === updated_boat.id){
+      return updated_boat
+    } else {
+      return boat
+    }
+  } ))
+
+  const onChange = (user) => setUser(user)
 
   return (
     <main>
@@ -57,9 +77,6 @@ function App() {
       <Route exact path='/boats'>
       <BoatPage boats={boats} locations={location}/>
       </Route>
-      <Route exact path='/locations'>
-      <LocationPage locations={location} />
-      </Route>
       <Route exact path='/owners'>
       <OwnerPage owners={owners} />
       </Route>
@@ -67,9 +84,24 @@ function App() {
       <BoatForm addBoat={addBoat}/>
       </Route>
       <Route exact path='/boats/:id'>
-      <BoatDetails />
+      <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat}/>
+      </Route>
+      <Route exact path='/boats/edit/:id'>
+        <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat}/>
+      </Route>
+      <Route path='/signup'>
+        <SignUp onChange={onChange}/>
+      </Route>
+      <Route path='/signin'>
+        <SignIn onChange={onChange}/>
+      </Route>
+      <Route path='/signout'>
+        <SignOut onChange={onChange}/>
       </Route>
       </Switch>
+      <Route path='/home'>
+        <Album/>
+      </Route>
       <Footer />
     </main>
   );

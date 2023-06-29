@@ -29,12 +29,20 @@ const Nav = ({ onSignOut }) => {
                   </li>
     
                   <li className='nav-link-wrapper'>
-                  <Link to="/signup">Signup</Link>
+                  <Link to="/signin">SignIn</Link>
                   </li>
     
                   <li className='nav-link-wrapper'>
-                  <Link to="/locations">Locations</Link>
+                    <Link to="/signup">Signup</Link>
                   </li>
+
+                  <li className='nav-link-wrapper'>
+                    <Link to="/signout">SignOut</Link>
+                  </li>
+
+                  <li className='nav-link-wrapper'>
+                  <Link to="/home">home</Link>
+                  </li>                                            
                   
               </ul>
           </nav>

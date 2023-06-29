@@ -45,12 +45,13 @@ const BoatForm = ({ addBoat }) => {
     },
     validationSchema: boatSchema,
     onSubmit: (values, { resetForm }) => {
-      fetch("/boats/new", {
+      const {make, model, image, price, description, city, state, country} = values
+      fetch("/boats", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify({boat:{make, model, image, price, description}, location:{city, state, country}}),
       })
         .then((r) => {
           if (r.ok) {
