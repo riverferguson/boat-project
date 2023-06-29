@@ -11,7 +11,7 @@ const Nav = ({ onSignOut }) => {
 
     return (
         <nav className="nav">
-        <Link to="/" className="site-title">
+        <Link to="/boats" className="site-title">
         <img className='logo' src={process.env.PUBLIC_URL + "/images/logo.jpg"} alt='oops'/> 
         <span className='shop-name'>&nbsp; Pacific Boat Club</span>
               </Link>
@@ -41,7 +41,7 @@ const Nav = ({ onSignOut }) => {
                   </li>
 
                   <li className='nav-link-wrapper'>
-                  <Link to="/home">home</Link>
+                  <Link to="/home">About Us</Link>
                   </li>                                            
                   
               </ul>

@@ -18,7 +18,7 @@ const {id, make, model, description, image, price, location: {city, state}} = bo
     <Card sx={{ maxWidth: 345, margin: '80px'}}>
       <CardMedia
         component="img"
-        alt="green iguana"
+        alt={model}
         height="140"
         src={image}
       />
