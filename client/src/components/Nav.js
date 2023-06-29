@@ -1,9 +1,22 @@
 import { Link } from 'react-router-dom'
 import './index.css'
+import { useState } from 'react'
 
 
-const Nav = () => {
 
+const Nav = ({user, userStatus}) => {
+
+  const handleToggle = () => {
+    if (userStatus){
+      return (
+        <Link to="/signin">SignIn</Link>
+      )
+    } else {
+      return (
+        <Link to="/signout">SignOut</Link>
+      )
+    }
+  }
     return (
         <nav className="nav">
         <Link to="/" className="site-title">
@@ -22,17 +35,13 @@ const Nav = () => {
                   <li className='nav-link-wrapper'>
                   <Link to='/boats/new'>Sell</Link>
                   </li>
-    
-                  <li className='nav-link-wrapper'>
-                  <Link to="/signin">SignIn</Link>
+
+                  <li className='nav-link-wrapper' onClick={handleToggle}>
+                  {userStatus ? "SignOut" : "SignIn"}
                   </li>
 
                   <li className='nav-link-wrapper'>
                     <Link to="/signup">Register as an owner</Link>
-                  </li>
-
-                  <li className='nav-link-wrapper'>
-                    <Link to="/signout">SignOut</Link>
                   </li>
     
                   <li className='nav-link-wrapper'>

@@ -14,6 +14,7 @@ function App() {
   const [owners, setOwners] = useState([]);
   const [location, setLocation] = useState([]);
   const [user, setUser] = useState(null);
+  const [userStatus, setUserStatus] = useState(false)
 
   useEffect(() => {
     fetch("/boats")
@@ -37,6 +38,7 @@ function App() {
     fetch("/check_session").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
+        setUserStatus(current => !current)
       }
     });
   }, []);
@@ -45,10 +47,10 @@ function App() {
 
   return (
     <main>
-      <Nav />
+      <Nav user={user} userStatus={userStatus} />
       <Switch>
       <Route path='/boats'>
-      <BoatPage boats={boats} />
+      <BoatPage boats={boats} location={location}/>
       </Route>
       <Route path='/locations'>
       <LocationPage locations={location} />

@@ -13,6 +13,7 @@ const {id, make, model, image, price} = boat
         <div>Make: {make}</div>
         <div>Model: {model}</div>
         <div>Price: {price}</div>
+        {/* <div>Location: {city} {state}</div> */}
         <Link to={`/boats/${id}`}>All Details</Link>
     </div>
   )

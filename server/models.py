@@ -19,7 +19,7 @@ class Location(db.Model, SerializerMixin):
     
     boats = db.relationship('Boat', back_populates='location')
     
-    
+    serialize_only = ('id', 'city', 'state', 'country')
     
     @validates('city')
     def validate_city(self, key, city):
@@ -57,7 +57,8 @@ class Owner(db.Model, SerializerMixin):
     
     boats = db.relationship('Boat', back_populates='owner')
     #TODO add in serialization for password so it isn't getting passed around
-    # serialize_only = ('-password')
+    serialize_only = ('id', 'first_name', 'last_name', 'bio', 'email', 'username', '-password')
+    
     @validates('name')
     def validate_name(self, key, name):
         if not name:
