@@ -3,22 +3,16 @@
 # Standard library imports
 
 # Remote library imports
-from flask import request, make_response, jsonify, session
+from flask import request, make_response, jsonify, session, abort
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
+from functools import wraps
 import ipdb
 
 # Local imports
 from config import *
 from models import Owner, Location, Boat
-# def login_required(func):
-#     @wraps(func) #* This is a decorator that will preserve the information about the original function (name, docstring, etc.)
-#     def decorated_function(*args, **qwargs):
-#         if 'user_id' not in session:
-#             abort(401, 'Unauthorized')
-#         return func(*args, **qwargs)
-#     return decorated_function
 
 # Views go here!
 @app.route('/')
@@ -81,6 +75,7 @@ class SignOut(Resource):
         return make_response({'message': '204: No Content'}, 204)
 
 api.add_resource(SignOut, '/signout')
+
 class Boats(Resource):
     def get(self):
         boats = [boat.to_dict() for boat in Boat.query.all()]
@@ -95,12 +90,13 @@ class Boats(Resource):
             db.session.commit()
             boat = Boat(**boat_data)
             boat.location = location
-            boat.owner_id = session.get('user_id') #removed hardcoded id
+            boat.owner_id = session.get('user_id') 
             db.session.add(boat)
             db.session.commit()
             return make_response(jsonify(boat.to_dict()), 201)
         except Exception as e:
             return make_response(jsonify({"errors": [str(e)]}), 400)
+
 api.add_resource(Boats, '/boats')
 
 class BoatsById(Resource):
@@ -110,6 +106,7 @@ class BoatsById(Resource):
             return make_response(jsonify(boat.to_dict()), 200)
         except Exception:
             return make_response(jsonify({"error": "Boat not found"}), 404)
+        
     def delete(self, id):
         try:
             boat = db.session.get(Boat, id)
@@ -118,6 +115,7 @@ class BoatsById(Resource):
             return make_response(jsonify({}), 204)
         except Exception:
             return make_response(jsonify({"errors": "Boats not found"}), 404)
+    
     def patch(self, id):
         boat_by_id = db.session.get(Boat, id)
         if not boat_by_id:
@@ -130,6 +128,7 @@ class BoatsById(Resource):
             return make_response(boat_by_id.to_dict(), 200)
         except Exception as e:
             return make_response({"errors": [str(e)]}, 400)
+        
 api.add_resource(BoatsById, '/boats/<int:id>')
 
 class Owners(Resource):
@@ -146,6 +145,7 @@ class OwnersById(Resource):
             return make_response(jsonify(owner.to_dict()), 200)
         except Exception:
             return make_response(jsonify({"error": "owner not found"}), 404)
+        
     def patch(self, id):
         owner_by_id = db.session.get(Owner, id)
         if not owner_by_id:
