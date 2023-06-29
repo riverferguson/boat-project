@@ -1,6 +1,5 @@
 import React from 'react'
 import BoatCard from './BoatCard'
-import LocationCard from './LocationCard'
 
 
 const BoatPage = ({boats}) => {

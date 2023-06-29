@@ -4,9 +4,13 @@ import BoatPage from "./BoatPage";
 import Nav from "./Nav";
 import Footer from "./Footer";
 import OwnerPage from "./OwnerPage";
-import LocationPage from "./LocationPage";
 import BoatForm from "./BoatForm";
 import BoatDetails from "./BoatDetails";
+import BoatEdit from "./BoatEdit";
+import SignUp from "./SignUp";
+import SignIn from "./SignIn";
+import SignOut from "./SignOut";
+import Album from "./Album";
 
 function App() {
   const [boats, setBoats] = useState([]);
@@ -34,6 +38,14 @@ function App() {
       .then((location) => setLocation(location));
   }, []);
 
+  useEffect(() => {
+    fetch("/check_session").then((r) => {
+      if (r.ok) {
+        r.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
   const addBoat = (newBoat) => {
     setBoats([...boats, newBoat])
   }
@@ -48,15 +60,22 @@ function App() {
     })
   }
 
+  const updateBoat = (updated_boat) => setBoats(boats => boats.map(boat =>{
+    if(boat.id === updated_boat.id){
+      return updated_boat
+    } else {
+      return boat
+    }
+  } ))
+
+  const onChange = (user) => setUser(user)
+
   return (
     <main>
       <Nav onSignOut={setUser}/>
       <Switch>
       <Route exact path='/boats'>
       <BoatPage boats={boats} locations={location}/>
-      </Route>
-      <Route exact path='/locations'>
-      <LocationPage locations={location} />
       </Route>
       <Route exact path='/owners'>
       <OwnerPage owners={owners} />
@@ -67,7 +86,22 @@ function App() {
       <Route exact path='/boats/:id'>
       <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat}/>
       </Route>
+      <Route exact path='/boats/edit/:id'>
+        <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat}/>
+      </Route>
+      <Route path='/signup'>
+        <SignUp onChange={onChange}/>
+      </Route>
+      <Route path='/signin'>
+        <SignIn onChange={onChange}/>
+      </Route>
+      <Route path='/signout'>
+        <SignOut onChange={onChange}/>
+      </Route>
       </Switch>
+      <Route path='/home'>
+        <Album/>
+      </Route>
       <Footer />
     </main>
   );
