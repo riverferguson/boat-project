@@ -1,14 +1,28 @@
+import { useHistory } from 'react-router-dom'
 
 function SignOut({ onChange }){
+
+    const history = useHistory()
 
     const handleSignOut = () => {
         fetch('/signout', {
             method: "DELETE",
-        }).then(() => onChange(null));
+        }).then((r) => {
+            if(r.ok){
+                onChange(null)
+                alert('Sign out successful, returning to home....')
+                history.push('/boats')
+            } else {
+                alert('Something went wrong. Please try again')
+            }
+        });
     }
 
     return (
-            <button onClick={handleSignOut()}>Sign Out</button>
+        <li >
+            <h2>Would you like to Sign Out?</h2>
+            <button onClick={handleSignOut}>Sign Out</button>
+        </li>
     )
 }
 
