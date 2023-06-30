@@ -9,7 +9,7 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData
 import os
 from flask_dotenv import DotEnv
-#load_dotenv()
+
 api_key = os.environ.get('SECRET_KEY')
 # Local imports
 

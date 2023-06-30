@@ -9,6 +9,7 @@ import BoatDetails from "./BoatDetails";
 import BoatEdit from "./BoatEdit";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
+import SignOut from './SignOut';
 import Search from "./Search";
 
 function App() {
@@ -20,7 +21,6 @@ function App() {
   const [searchMake, setSearchMake] = useState("");
   const [searchModel, setSearchModel] = useState("");
   const history = useHistory();
-  const [userStatus, setUserStatus] = useState(false)
 
   useEffect(() => {
     fetch("/boats")
@@ -44,10 +44,13 @@ function App() {
     fetch("/check_session").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
-        setUserStatus(current => !current)
+        // setUser(current => !current)
+      } else {
+        setUser(null)
       }
     });
   }, []);
+
 
   const addBoat = (newBoat) => {
     setBoats([...boats, newBoat]);
@@ -84,11 +87,11 @@ function App() {
     return makeMatch || modelMatch;
   });
 
-  const onChange = (user) => setUser(user)
+  const onSign = (user) => setUser(user)
 
   return (
     <main>
-      <Nav user={user} userStatus={userStatus} onChange={onChange}/>
+      <Nav user={user} />
       <Switch>
         <Route exact path="/boats">
           <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />
@@ -106,11 +109,14 @@ function App() {
         <Route exact path="/boats/edit/:id">
           <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat}  />
         </Route>
+        <Route path="/signout">
+          <SignOut onSign={onSign} />
+        </Route>
         <Route path="/signup">
-          <SignUp onChange={onChange} />
+          <SignUp onSign={onSign} />
         </Route>
         <Route path="/signin">
-          <SignIn onChange={onChange} />
+          <SignIn onSign={onSign} />
         </Route>
       </Switch>
       <Footer />
@@ -119,11 +125,3 @@ function App() {
 }
 
 export default App;
-
-//this will need to be added once we figure out how we want to authorize things
-//the import can then be uncommented
-// if (user) {
-//   return <h2>Welcome, {user.username}</h2>
-// } else {
-//   return <SignIn onSignIn={setUser} />
-// }

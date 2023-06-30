@@ -1,17 +1,7 @@
 import { Link } from 'react-router-dom'
 import './index.css'
-import { useState } from 'react'
 
-
-
-const Nav = ({onChange}) => {
-
-
-    const handleSignOut = () => {
-        fetch('/signout', {
-            method: "DELETE",
-        }).then(() => onChange(null));
-    }
+const Nav = ({ user }) => {
   
     return (
         <nav className="nav">
@@ -33,17 +23,14 @@ const Nav = ({onChange}) => {
                   </li>
 
                   <li className='nav-link-wrapper'>
-                  <Link to="/signin">SignIn</Link>
+                  <Link to={user ? "/signout" : "/signin"}>
+                    {user ? "SignOut" : "SignIn"}
+                    </Link>
                   </li>
 
                   <li className='nav-link-wrapper'>
                     <Link to="/signup">SignUp</Link>
-                  </li>
-
-                  <li className='nav-link-wrapper'>
-                  <Link to="/signout" onClick={handleSignOut()}>SignOut</Link>
-                  </li>
-                                          
+                  </li>                                          
                   
               </ul>
           </nav>

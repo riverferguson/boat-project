@@ -35,7 +35,7 @@ const {id, make, model, description, image, location: {city, state}} = boat
       </CardContent>
       <CardActions>
       <Button size="small">
-      <Link to={`/boats/${id}`}>
+      <Link to={`/boats/${id}`} >
         All Details
       </Link>
       </Button>
