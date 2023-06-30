@@ -44,7 +44,7 @@ function App() {
     fetch("/check_session").then((r) => {
       if (r.ok) {
         r.json().then((user) => setUser(user));
-        setUserStatus(current => !current)
+        setUser(current => !current)
       }
     });
   }, []);
@@ -88,7 +88,7 @@ function App() {
 
   return (
     <main>
-      <Nav user={user} userStatus={userStatus} onChange={onChange}/>
+      <Nav user={user} />
       <Switch>
         <Route exact path="/boats">
           <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />
