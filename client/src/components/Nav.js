@@ -30,11 +30,7 @@ const Nav = ({ user }) => {
 
                   <li className='nav-link-wrapper'>
                     <Link to="/signup">SignUp</Link>
-                  </li>
-
-                  <li className='nav-link-wrapper'>
-                  <Link to="/home">About Us</Link>
-                  </li>                                            
+                  </li>                                          
                   
               </ul>
           </nav>
