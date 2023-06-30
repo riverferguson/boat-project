@@ -16,7 +16,7 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 const OwnerCard = ({owner}) => {
-const {first_name, last_name, bio, boats} = owner
+const {first_name, last_name, bio, email} = owner
 
 
   return (
@@ -28,6 +28,9 @@ const {first_name, last_name, bio, boats} = owner
         </Typography>
         <Typography variant="body2" color="text.secondary">
         About me: {bio}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+        my email: {email}
         </Typography>
       </CardContent>
       <CardActions>
