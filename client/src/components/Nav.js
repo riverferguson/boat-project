@@ -4,15 +4,15 @@ import { useState } from 'react'
 
 
 
-const Nav = ({user, userStatus}) => {
+const Nav = ({onChange}) => {
 
-const Nav = ({ onSignOut }) => {
+
     const handleSignOut = () => {
-        fetch('/logout', {
+        fetch('/signout', {
             method: "DELETE",
-        }).then(() => onSignOut());
+        }).then(() => onChange(null));
     }
-  }
+  
     return (
         <nav className="nav">
         <Link to="/boats" className="site-title">
@@ -41,12 +41,9 @@ const Nav = ({ onSignOut }) => {
                   </li>
 
                   <li className='nav-link-wrapper'>
-                  <Link to="/signout">SignOut</Link>
+                  <Link to="/signout" onClick={handleSignOut()}>SignOut</Link>
                   </li>
-
-                  <li className='nav-link-wrapper'>
-                  <Link to="/home">About Us</Link>
-                  </li>                                            
+                                          
                   
               </ul>
           </nav>

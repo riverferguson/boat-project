@@ -56,7 +56,7 @@ const BoatForm = ({ addBoat }) => {
             r.json().then((data) => {
               addBoat(data);
               resetForm({ values: '' });
-              history.push('/');
+              history.push('/boats');
             });
           } else {
             r.json().then((error) => setErrors(error.message));

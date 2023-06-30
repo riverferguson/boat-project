@@ -2,8 +2,8 @@ import React from 'react'
 import BoatCard from './BoatCard'
 
 
-const BoatPage = ({boats}) => {
-const mappedBoats = boats.map(boat => <BoatCard key={boat.id} boat={boat}/>)
+const BoatPage = ({boats, owners}) => {
+const mappedBoats = boats.map(boat => <BoatCard key={boat.id} boat={boat} owners={owners}/>)
 
 
   return (

@@ -2,33 +2,31 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import { Link } from "react-router-dom";
 import * as React from "react";
-import AppBar from "@mui/material/AppBar";
 import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
-import CssBaseline from "@mui/material/CssBaseline";
-import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
-import Box from "@mui/material/Box";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-const BoatDetails = ({ deleteBoat, handleEdit }) => {
+const BoatDetails = ({ deleteBoat, handleEdit}) => {
   const [newBoat, setNewBoat] = useState([]);
   const { id } = useParams();
   const history = useHistory();
   const [error, setError] = useState(null);
-  const { make, model, description, image, price } = newBoat;
+  const { make, model, description, image, price, location, owner} = newBoat;
+  // const {city, state, country} = location
+
 
   useEffect(() => {
     fetch(`/boats/${id}`)
       .then((resp) => resp.json())
-      .then((boats) => setNewBoat(boats));
+      .then((boats) => {
+      console.log(boats)
+        setNewBoat(boats)
+      });
   }, [id]);
 
   const handleDelete = (e) => {
@@ -38,7 +36,7 @@ const BoatDetails = ({ deleteBoat, handleEdit }) => {
       .then((resp) => {
         if (resp.ok) {
           deleteBoat(newBoat);
-          history.push("/");
+          history.push("/boats");
         } else {
           resp.json().then((error) => setError(error.message));
         }
@@ -66,10 +64,16 @@ const BoatDetails = ({ deleteBoat, handleEdit }) => {
             Description: {description}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            {description}
+            Price: ${price}
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Price: ${price}
+            location: {location?.city}, {location?.state}, {location?.country}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Owner: {owner?.first_name}, {owner?.last_name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            email: {owner?.email}
           </Typography>
         </CardContent>
         <CardActions>

@@ -10,13 +10,12 @@ const Search = ({ setSearchMake, setSearchModel }) => {
   };
 
   return (
-    <div>
+    <div className="search">
       <select onChange={handleMakeChange}>
-        <option value="">All</option>
-        <option value="make">Make</option>
-        <option value="model">Model</option>
+        <option className='button' value="make">Make</option>
+        <option className='button' value="model">Model</option>
       </select>
-      <input type="text" placeholder="Search..." onChange={handleModelChange} />
+      <input className='search-input' type="text" placeholder="Search..." onChange={handleModelChange} />
     </div>
   );
 };
