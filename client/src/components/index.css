@@ -80,16 +80,7 @@ body {
     padding: .25rem;
 }
 
-.nav li.active {
-    background-color: #555;
-}
 
-.nav li:hover {
-    background-color: #bfbdc0;
-    font-weight: bold;
-    color: black;
-
-}
 
 .nav-link-wrapper {
     font-size: 25px;
@@ -186,3 +177,35 @@ body {
     margin: 1rem 2rem;
     font-weight: bolder;
   }
+
+
+  .search {
+    font-weight: 900;
+    text-align: center;
+    border: 0cqmax;
+    padding: 25px;
+    font-size: 30px;
+}
+
+.search-input {
+    margin-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    font-size: 25px;
+    border-radius: 1rem;
+    width: 50%;
+}
+
+.button {
+  background-color: #bfbdc0;
+  /* height: fit-content; */
+  height: 50%;
+  font-size: 20px;
+  text-align: center;
+  margin-top: auto;
+  margin-bottom: auto;
+  color: black;
+  transition-duration: 0.4s;
+  border-radius: 2.5rem;
+}

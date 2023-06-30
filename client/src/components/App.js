@@ -9,8 +9,6 @@ import BoatDetails from "./BoatDetails";
 import BoatEdit from "./BoatEdit";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import SignOut from "./SignOut";
-import Album from "./Album";
 import Search from "./Search";
 
 function App() {
@@ -62,7 +60,7 @@ function App() {
     setBoatEdit((current) => !current);
     history.push({
       pathname: `/boats/edit/${boat.id}`,
-      state: boat,
+      state: boat, owners, location
     });
   };
 
@@ -94,7 +92,7 @@ function App() {
       <Switch>
         <Route exact path="/boats">
           <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />
-          <BoatPage boats={filteredBoats} locations={location} />
+          <BoatPage boats={filteredBoats} owners={owners}/>
         </Route>
         <Route exact path="/owners">
           <OwnerPage owners={owners} />
@@ -103,10 +101,10 @@ function App() {
           <BoatForm addBoat={addBoat} />
         </Route>
         <Route exact path="/boats/:id">
-          <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat} />
+          <BoatDetails handleEdit={handleEdit} deleteBoat={deleteBoat} location={location} owners={owners}/>
         </Route>
         <Route exact path="/boats/edit/:id">
-          <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat} />
+          <BoatEdit boatEdit={boatEdit} updateBoat={updateBoat}  />
         </Route>
         <Route path="/signup">
           <SignUp onChange={onChange} />
@@ -114,13 +112,7 @@ function App() {
         <Route path="/signin">
           <SignIn onChange={onChange} />
         </Route>
-        <Route path="/signout">
-          <SignOut onChange={onChange} />
-        </Route>
       </Switch>
-      <Route path="/home">
-        <Album />
-      </Route>
       <Footer />
     </main>
   );
