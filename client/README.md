@@ -1,23 +1,28 @@
 # Pacific Boat Club
 
-Pacific Boat Club is an app for viewing boats and information about members who are interested in listing their boats for sale. In this app you will be able to signup as a new member to list and edit your boat listing.
+Welcome to the Pacific Boat Club repository! Pacific Boat Club is a professional application designed for viewing boats and accessing information about members interested in listing their boats for sale. With this app, users can sign up as new members, list their boats, and manage their boat listings.
 
 # Instructions
- 
- To get the front end running do the following:
- - Fork and clone repo
- - cd into client folder
- -install the following:
-    ### npm install
-    ### npm run
-    ### npm install @mui/material @emotion/react @emotion/styled
-    ### npm install @mui/material @mui/styled-engine-sc styled-components
-    ### npm install @mui/icons-material
-    ### npm install formik
-    ### npm install yup
 
-Once on the page users can signup and create a username and password. User's name and biography will be posted to the members page when you signup. After loging in user can edit their own listings and delete their own listings. If user is not logged in you can still browse boats and members, however, the user will not be able to edit anything. There is also a search feature on the boats page  where the user can search for a specific make or model of boat. 
+To get the front end up and running, follow these steps:
 
+Fork and clone the repository.
+Navigate to the client folder.
+Install the necessary dependencies by running the following commands:
+npm install
+npm run
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components
+npm install @mui/icons-material
+npm install formik
+npm install yup
+Once you are on the Pacific Boat Club application page, users can sign up and create a unique username and password. When signing up, users can also provide their name and biography, which will be displayed on the members' page. After logging in, users have the ability to edit their own listings and delete them. If a user is not logged in, they can still browse boats and members, but they won't have editing capabilities. The boats page also features a search functionality, allowing users to search for specific makes or models of boats.
+
+
+Contact
+If you have any questions or require further assistance, please feel free to contact us at riverferguson@gmail.com.
+
+Thank you for your interest in Pacific Boat Club!
 
 
 
