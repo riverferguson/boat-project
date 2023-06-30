@@ -10,14 +10,15 @@ Fork and clone the repository.
 Navigate to the client folder.
 Install the necessary dependencies by running the following commands:
 
-
-### npm install
-### npm run
-### npm install @mui/material @emotion/react @emotion/styled
-### npm install @mui/material @mui/styled-engine-sc styled-components
-### npm install @mui/icons-material
-### npm install formik
-### npm install yup 
+```
+npm install
+npm run
+npm install @mui/material @emotion/react @emotion/styled
+npm install @mui/material @mui/styled-engine-sc styled-components
+npm install @mui/icons-material
+npm install formik
+npm install yup 
+```
 
 
 Once you are on the Pacific Boat Club application page, users can sign up and create a unique username and password. When signing up, users can also provide their name and biography, which will be displayed on the members' page. After logging in, users have the ability to edit their own listings and delete them. If a user is not logged in, they can still browse boats and members, but they won't have editing capabilities. The boats page also features a search functionality, allowing users to search for specific makes or models of boats.
