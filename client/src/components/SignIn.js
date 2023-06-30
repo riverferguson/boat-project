@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useHistory} from 'react-router-dom'
 
 const defaultTheme = createTheme();
 
@@ -29,9 +30,10 @@ function Copyright(props) {
   );
 }
 
-function SignIn({ onChange }){
-    const [username, setUsername] = useState("")
-    const [password, setPassword] = useState("")
+function SignIn({ onSign }){
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+  const history = useHistory()
 
     const handleSubmit = (e) => {
         const userObj = {username: username, password: password}
@@ -46,8 +48,9 @@ function SignIn({ onChange }){
         })
         .then((r) => {
             if(r.ok){
-                r.json().then(onChange)
-                // <Link to='/' > <Link/>
+                r.json().then(data => onSign([...data]))
+                alert('You have been signed in, returning to home...')
+                history.push('/boats')
             } else {
                 alert('Invalid Credentials')
             }
