@@ -23,7 +23,8 @@ const BoatForm = ({ addBoat }) => {
     price: yup
       .number()
       .min(1, 'Price must be greater than $1.00')
-      .max(1000000000000, 'Price must not be greater than $1,000,000,000,000'),
+      .max(1000000000000, 'Price must not be greater than $1,000,000,000,000')
+      .required('Price is required'),
     image: yup.string().required('Image is required'),
     city: yup.string().required('City is required'),
     state: yup.string().required('State is required'),

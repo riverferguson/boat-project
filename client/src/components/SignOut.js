@@ -1,6 +1,6 @@
 import { useHistory } from 'react-router-dom'
 
-function SignOut({ onChange }){
+function SignOut({ onSign }){
 
     const history = useHistory()
 
@@ -9,7 +9,7 @@ function SignOut({ onChange }){
             method: "DELETE",
         }).then((r) => {
             if(r.ok){
-                onChange(null)
+                onSign(null)
                 alert('Sign out successful, returning to home....')
                 history.push('/boats')
             } else {

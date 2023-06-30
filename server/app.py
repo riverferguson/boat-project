@@ -8,7 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_restful import Resource
 from models import Boat, Location, Owner
 from functools import wraps
-import ipdb
+# import ipdb
 
 # Local imports
 from config import *
@@ -28,7 +28,13 @@ def login_required(func):
             return make_response({'error': 'Unauthorized'}, 401)
         return func(*args, **kwargs)
     return decorated_function
-    
+
+# @app.route('/current_user', methods=['GET'])
+# def get():
+#     if 'user_id' in session:
+#         current_user = session['user_id']
+#         return make_response(jsonify(current_user))
+#     return make_response({'error': 'no user found'})
 
 class SignUp(Resource):
     
@@ -64,9 +70,7 @@ class SignIn(Resource):
         if not existing_owner or not check_password_hash(existing_owner.password, password):
             return make_response('Username or password was incorrect. Please try again.', 404)
         
-        
         session['user_id'] = existing_owner.id
-        
         return make_response(existing_owner.to_dict())
         
 api.add_resource(SignIn, '/signin')

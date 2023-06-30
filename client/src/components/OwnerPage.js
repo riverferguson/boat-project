@@ -8,7 +8,6 @@ const OwnerPage = ({ owners }) => {
 
   return (
     <main>
-      <h2>Members</h2>
       <div>{mappedOwners}</div>
     </main>
   );

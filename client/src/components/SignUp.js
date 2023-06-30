@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useHistory } from 'react-router-dom';
 
 
 const defaultTheme = createTheme();
@@ -30,13 +31,14 @@ function Copyright(props) {
     );
   }
 
-function SignUp({ onChange }){
+function SignUp({ onSign }){
     const [first_name, setFirstName] = useState("")
     const [last_name, setLastName] = useState("")
     const [bio, setBio] = useState("")
     const [email, setEmail] = useState("")
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
+    const history = useHistory()
 
     const handleSubmit = (e) => {
         const newUserObj = {
@@ -57,7 +59,9 @@ function SignUp({ onChange }){
         })
         .then((r) => {
             if(r.ok){
-                r.json().then(onChange)
+                r.json().then(onSign)
+                alert('Account created succesfully, returning to home....')
+                history.push('/boats')
             } else {
                 alert('Something went wrong. Please try again')
             }
