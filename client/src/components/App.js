@@ -9,8 +9,6 @@ import BoatDetails from "./BoatDetails";
 import BoatEdit from "./BoatEdit";
 import SignUp from "./SignUp";
 import SignIn from "./SignIn";
-import SignOut from "./SignOut";
-import Album from "./Album";
 import Search from "./Search";
 
 function App() {
@@ -90,11 +88,11 @@ function App() {
 
   return (
     <main>
-      <Nav user={user} userStatus={userStatus} />
+      <Nav user={user} userStatus={userStatus} onChange={onChange}/>
       <Switch>
         <Route exact path="/boats">
           <Search setSearchMake={setSearchMake} setSearchModel={setSearchModel} />
-          <BoatPage boats={filteredBoats}/>
+          <BoatPage boats={filteredBoats} owners={owners}/>
         </Route>
         <Route exact path="/owners">
           <OwnerPage owners={owners} />
@@ -114,13 +112,7 @@ function App() {
         <Route path="/signin">
           <SignIn onChange={onChange} />
         </Route>
-        <Route path="/signout">
-          <SignOut onChange={onChange} />
-        </Route>
       </Switch>
-      <Route path="/home">
-        <Album />
-      </Route>
       <Footer />
     </main>
   );

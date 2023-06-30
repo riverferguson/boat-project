@@ -11,19 +11,22 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-const BoatDetails = ({ deleteBoat, handleEdit, owners}) => {
+const BoatDetails = ({ deleteBoat, handleEdit}) => {
   const [newBoat, setNewBoat] = useState([]);
   const { id } = useParams();
   const history = useHistory();
   const [error, setError] = useState(null);
-  const { make, model, description, image, price} = newBoat;
-
+  const { make, model, description, image, price, location, owner} = newBoat;
+  // const {city, state, country} = location
 
 
   useEffect(() => {
     fetch(`/boats/${id}`)
       .then((resp) => resp.json())
-      .then((boats) => setNewBoat(boats));
+      .then((boats) => {
+      console.log(boats)
+        setNewBoat(boats)
+      });
   }, [id]);
 
   const handleDelete = (e) => {
@@ -62,6 +65,15 @@ const BoatDetails = ({ deleteBoat, handleEdit, owners}) => {
           </Typography>
           <Typography variant="body2" color="text.secondary">
             Price: ${price}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            location: {location?.city}, {location?.state}, {location?.country}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Owner: {owner?.first_name}, {owner?.last_name}
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            email: {owner?.email}
           </Typography>
         </CardContent>
         <CardActions>

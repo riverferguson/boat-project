@@ -91,7 +91,7 @@ class Boat(db.Model, SerializerMixin):
     owner = db.relationship('Owner', back_populates='boats')
     location = db.relationship('Location', back_populates='boats')
     
-    serialize_only = ('id', 'make', 'model', 'price', 'image', 'description', 'owner_id', 'location_id', 'location')
+    serialize_only = ('id', 'make', 'model', 'price', 'image', 'description', 'owner_id', 'location_id', 'location', 'owner')
     
     @validates('make')
     def validate_make(self, key, make):

@@ -80,16 +80,7 @@ body {
     padding: .25rem;
 }
 
-.nav li.active {
-    background-color: #555;
-}
 
-.nav li:hover {
-    background-color: #bfbdc0;
-    font-weight: bold;
-    color: black;
-
-}
 
 .nav-link-wrapper {
     font-size: 25px;

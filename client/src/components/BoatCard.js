@@ -10,8 +10,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 
-const BoatCard = ({boat}) => {
+const BoatCard = ({boat, owners}) => {
 const {id, make, model, description, image, location: {city, state}} = boat
+
   return (
     <Container maxWidth="sm">
     <Card sx={{ maxWidth: 345, margin: '80px'}}>
@@ -29,7 +30,7 @@ const {id, make, model, description, image, location: {city, state}} = boat
         {description}
         </Typography>
         <Typography variant="body2" color="text.secondary">
-        {city}
+        {city}, {state}
         </Typography>
       </CardContent>
       <CardActions>
